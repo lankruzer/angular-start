@@ -1,0 +1,13 @@
+<ul>
+  <li *ngFor="let courseItem of courseItemList">
+    <article>
+      <h2>
+        <a routerLink="{{ 'course/' + courseItem.id }}">
+          {{ courseItem.title }}
+        </a>
+      </h2>
+      <p>{{ courseItem.text }}</p>
+    </article>
+  </li>
+
+</ul>

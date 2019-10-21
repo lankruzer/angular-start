@@ -1,0 +1,30 @@
+.header {
+  padding: 20px 0;
+  background-color: #414452;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+
+  &-icon {
+    margin-right: 15px;
+  }
+
+  &-text {
+
+  }
+}
