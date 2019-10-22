@@ -1,0 +1,12 @@
+<div class="breadcrumbs">
+  <div class="container">
+    <ul class="breadcrumbs-list">
+      <li *ngFor="let link of links; let last = last"
+          class="breadcrumbs-list-item {{ last ? 'breadcrumbs-list-item__last' : '' }}">
+        <a routerLink="{{ link.href }}" class="breadcrumbs-list-link">
+          {{ link.text }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

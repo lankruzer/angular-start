@@ -1,0 +1,49 @@
+.breadcrumbs {
+  background-color: #fff;
+
+  &-list {
+    margin: 0;
+    padding: 20px 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+
+    &-item {
+      display: flex;
+      align-items: center;
+
+      &::after {
+        content: '/';
+        display: block;
+        margin-left: 5px;
+        margin-right: 5px;
+        font-family: SourceSansPro, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        color: #30b6dd;
+      }
+
+      &:last-of-type::after {
+        content: none;
+      }
+
+      &__last {
+        .breadcrumbs-list-link {
+          color: #2c2f3c;
+        }
+      }
+    }
+
+    &-link {
+      display: inline-block;
+      font-family: SourceSansPro, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.71;
+      letter-spacing: normal;
+      color: #868996;
+      text-decoration: none;
+    }
+  }
+}
