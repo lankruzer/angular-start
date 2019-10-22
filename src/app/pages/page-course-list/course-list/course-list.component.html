@@ -1,26 +1,6 @@
 <ul class="course-list">
   <li *ngFor="let courseItem of courseItemList" class="course-list-item">
-    <article class="course">
-      <div class="course-column-left">
-        <header class="course-header">
-          <h2 class="course-title">
-            <a routerLink="{{ 'course/' + courseItem.id }}" class="course-link">
-              {{ courseItem.title }}
-            </a>
-          </h2>
-          <div class="course-info">
-            <div class="course-info-item">1h 28min</div>
-            <div class="course-info-item">6 Nov, 2018</div>
-          </div>
-        </header>
-        <p class="course-text">{{ courseItem.text }}</p>
-      </div>
-
-      <div class="course-column-right">
-        <button type="button">Edit</button>
-        <button type="button">Delete</button>
-      </div>
-    </article>
+    <app-course-list-item [courseItem]="courseItem"></app-course-list-item>
   </li>
 </ul>
 
