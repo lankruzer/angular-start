@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-course-list.component.scss']
 })
 export class PageCourseListComponent implements OnInit {
+  public links = [
+    {
+      href: '/courses',
+      text: 'Courses'
+    },
+  ];
 
   constructor() { }
 

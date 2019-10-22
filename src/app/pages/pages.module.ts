@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 import { PageCourseListComponent } from './page-course-list/page-course-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {RouterModule} from "@angular/router";
-import {CourseListModule} from "../course-list/course-list.module";
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { CourseListComponent } from './page-course-list/course-list/course-list.component';
+import { CourseListItemComponent } from './page-course-list/course-list-item/course-list-item.component';
 
 
 
 @NgModule({
-  declarations: [PageCourseListComponent, PageNotFoundComponent],
+  declarations: [PageCourseListComponent, PageNotFoundComponent, BreadcrumbsComponent, CourseListComponent, CourseListItemComponent],
   imports: [
     CommonModule,
     RouterModule,
-    CourseListModule
   ],
   exports: [
     PageCourseListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BreadcrumbsComponent
   ]
 })
 export class PagesModule { }

@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
+  public links = [
+    {
+      href: '/page-not-found',
+      text: 'Page not found'
+    },
+  ];
 
   constructor() { }
 
