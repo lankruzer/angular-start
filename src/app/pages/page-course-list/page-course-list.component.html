@@ -1,10 +1,16 @@
-<app-breadcrumbs></app-breadcrumbs>
+<app-breadcrumbs [links]="links"></app-breadcrumbs>
 
 <div class="wrapper-page-content">
   <div class="container">
     <div class="wrapper-search">
-      <form action="#">
-        <input type="text" placeholder="Text to search">
+      <form action="#" (submit)="onSearchSubmit($event)">
+        <label>
+          <input
+            type="text"
+            placeholder="Text to search"
+            (input)="onSearchChange($event)"
+            [value]="searchQuery">
+        </label>
         <button type="submit">Search</button>
       </form>
     </div>

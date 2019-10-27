@@ -4,18 +4,20 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from "@angular/router";
 import { LogoComponent } from './header/logo/logo.component';
+import { BreadcrumbsComponent } from "./breadcrumbs/breadcrumbs.component";
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, LogoComponent],
+  declarations: [HeaderComponent, FooterComponent, LogoComponent, BreadcrumbsComponent],
   imports: [
     CommonModule,
     RouterModule
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BreadcrumbsComponent,
   ]
 })
 export class CoreModule { }
