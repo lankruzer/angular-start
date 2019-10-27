@@ -1,0 +1,11 @@
+<form action="#" (submit)="onSearchSubmit($event)" class="search-form">
+  <label class="label">
+    <input
+      type="text"
+      placeholder="Text to search"
+      class="input"
+      (input)="onSearchChange($event)"
+      [value]="searchQuery">
+  </label>
+  <button type="submit" class="btn">Search</button>
+</form>

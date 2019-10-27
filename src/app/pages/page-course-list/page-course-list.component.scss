@@ -12,3 +12,35 @@
     text-align: right;
   }
 }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0 auto;
+  padding: 0 14px;
+  font-family: SourceSansPro, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.57;
+  letter-spacing: -0.1px;
+  color: #ffffff;
+  border: 0;
+  border-radius: 3px;
+  background-color: #30b6dd;
+  cursor: pointer;
+  transition: .25s;
+
+  &:hover {
+    background-color: darken(#30b6dd, 5);
+  }
+
+  &__icon {
+    margin-right: 12px;
+    margin-top: -3px;
+    font-size: 30px;
+    line-height: 30px;
+  }
+}

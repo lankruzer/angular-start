@@ -8,16 +8,20 @@
       </h2>
       <div class="course-info">
         <div class="course-info-item">
-          {{ formatDuration(courseItem.duration) }}
+          Duration:
+          <strong> {{ formatDuration(courseItem.duration) }}</strong>
         </div>
-        <div class="course-info-item">{{ courseItem.creationDate }}</div>
+        <div class="course-info-item">
+          Publication:
+          <strong> {{ courseItem.creationDate }}</strong>
+        </div>
       </div>
     </header>
     <p class="course-text">{{ courseItem.description }}</p>
   </div>
 
   <div class="course-column-right">
-    <button type="button" (click)="onEditCourse(courseItem.id)">Edit</button>
-    <button type="button" (click)="onDeleteCourse(courseItem.id)">Delete</button>
+    <button type="button" (click)="onEditCourse(courseItem.id)" class="btn">Edit</button>
+    <button type="button" (click)="onDeleteCourse(courseItem.id)" class="btn">Delete</button>
   </div>
 </article>

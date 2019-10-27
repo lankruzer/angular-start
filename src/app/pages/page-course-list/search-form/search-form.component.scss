@@ -1,0 +1,44 @@
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  margin-right: 6px;
+  display: block;
+}
+
+.input {
+  display: block;
+  padding: 0 20px 0 42px;
+  box-sizing: border-box;
+  width: 360px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 48px;
+  border: solid 1px #d9dbe3;
+  background-color: #ffffff;
+  background-image: url("./assets/ic-search.svg");
+  background-position: 12px center;
+  background-repeat: no-repeat;
+}
+
+.btn {
+  min-width: 100px;
+  font-family: SourceSansPro, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.56;
+  letter-spacing: -0.13px;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #9bc837;
+  border: 0;
+  transition: .25s;
+
+  &:hover {
+    background-color: darken(#9bc837, 5);
+  }
+}

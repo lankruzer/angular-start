@@ -6,11 +6,12 @@ import { RouterModule } from "@angular/router";
 import { CourseListComponent } from './page-course-list/course-list/course-list.component';
 import { CourseListItemComponent } from './page-course-list/course-list-item/course-list-item.component';
 import {CoreModule} from "../core/core.module";
+import { SearchFormComponent } from './page-course-list/search-form/search-form.component';
 
 
 
 @NgModule({
-  declarations: [PageCourseListComponent, PageNotFoundComponent, CourseListComponent, CourseListItemComponent],
+  declarations: [PageCourseListComponent, PageNotFoundComponent, CourseListComponent, CourseListItemComponent, SearchFormComponent],
   imports: [
     CommonModule,
     RouterModule,

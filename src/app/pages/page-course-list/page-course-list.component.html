@@ -3,20 +3,19 @@
 <div class="wrapper-page-content">
   <div class="container">
     <div class="wrapper-search">
-      <form action="#" (submit)="onSearchSubmit($event)">
-        <label>
-          <input
-            type="text"
-            placeholder="Text to search"
-            (input)="onSearchChange($event)"
-            [value]="searchQuery">
-        </label>
-        <button type="submit">Search</button>
-      </form>
+      <app-search-form [searchQuery]="searchQuery"
+                       [onSearchChange]="onSearchChange"
+                       [onSearchSubmit]="onSearchSubmit">
+      </app-search-form>
     </div>
 
     <div class="wrapper-button">
-      <button type="button" routerLink="/course-new">Add course</button>
+      <button type="button" routerLink="/course-new" class="btn">
+        <span class="btn__icon">+</span>
+        <span class="btn__text">
+          Add course
+        </span>
+      </button>
     </div>
 
     <app-course-list></app-course-list>

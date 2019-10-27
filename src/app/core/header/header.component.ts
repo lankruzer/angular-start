@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+// Как правильно импортировать ресуры?
+import icUserLogin from './assets/ic-user.svg';
+import icUserLogout from './assets/ic-exit.svg';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   public isAuth : boolean = false;
+  public icUserLogin : any = icUserLogin;
+  public icUserLogout : any = icUserLogout;
 
   public onUserLogin = () : void => {
     console.log('User login');

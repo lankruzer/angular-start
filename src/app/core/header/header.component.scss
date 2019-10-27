@@ -10,4 +10,30 @@
   width: 100%;
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+  font-family: SourceSansPro, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #ffffff;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: .25s;
+
+  &__icon {
+    margin-right: 9px;
+  }
+
+  &:hover {
+    color: #30b6dd;
+  }
+}
+
 
