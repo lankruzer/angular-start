@@ -17,6 +17,14 @@ export class CourseListItemComponent implements OnInit {
     return hoursStr + ' ' + minutesStr;
   };
 
+  public onEditCourse = (id: CourseListItem['id']) : void => {
+    console.log('Edit course id: ', id);
+  };
+
+  public onDeleteCourse = (id: CourseListItem['id']) : void => {
+    console.log('Delete course id: ', id);
+  };
+
   constructor() { }
 
   ngOnInit() {

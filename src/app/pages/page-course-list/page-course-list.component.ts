@@ -35,5 +35,5 @@ export class PageCourseListComponent implements OnInit {
     console.log('Search on change value: ', event.target.value);
     this.searchQuery = event.target.value;
     console.log('Search on change searchQuery: ', this.searchQuery);
-  }
+  };
 }

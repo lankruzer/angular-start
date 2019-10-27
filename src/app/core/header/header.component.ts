@@ -6,7 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public isAuth = false;
+  public isAuth : boolean = false;
+
+  public onUserLogin = () : void => {
+    console.log('User login');
+
+    this.isAuth = true;
+  };
+
+  public onUserLogout = () : void => {
+    console.log('User logout');
+
+    this.isAuth = false;
+  };
 
   constructor() { }
 

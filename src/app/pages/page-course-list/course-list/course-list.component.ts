@@ -27,6 +27,10 @@ export class CourseListComponent implements OnInit {
     }
   ];
 
+  public onLoadMore = () : void => {
+    console.log('Load more');
+  };
+
   constructor() {
   }
 

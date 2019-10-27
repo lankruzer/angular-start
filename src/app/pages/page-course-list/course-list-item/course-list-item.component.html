@@ -17,7 +17,7 @@
   </div>
 
   <div class="course-column-right">
-    <button type="button">Edit</button>
-    <button type="button">Delete</button>
+    <button type="button" (click)="onEditCourse(courseItem.id)">Edit</button>
+    <button type="button" (click)="onDeleteCourse(courseItem.id)">Delete</button>
   </div>
 </article>
