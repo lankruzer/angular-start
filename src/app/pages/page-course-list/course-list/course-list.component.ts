@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CourseListItem } from "../course-list-item.model";
 
 @Component({
@@ -10,8 +10,18 @@ import { CourseListItem } from "../course-list-item.model";
 export class CourseListComponent implements OnInit {
   public courseItemList: CourseListItem[];
 
+  // Где лучше объявлять функции? Над или под constructor + ngOnInit?
+
   public onLoadMore = () : void => {
     console.log('Load more');
+  };
+
+  public onEditCourse = (id: CourseListItem['id']) : void => {
+    console.log('Edit course id: ', id);
+  };
+
+  public onDeleteCourse = (id: CourseListItem['id']) : void => {
+    console.log('Delete course id: ', id);
   };
 
   constructor() {
