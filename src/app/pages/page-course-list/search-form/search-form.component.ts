@@ -6,10 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit {
-  @Input() public searchQuery: string;
-  // Как правильно прокидывать и типизировать функции?
-  @Input() public onSearchSubmit;
-  @Input() public onSearchChange;
+  @Input() searchQuery: string;
+  @Input() onSearchSubmit;
+  @Input() onSearchChange;
 
   constructor() {}
 

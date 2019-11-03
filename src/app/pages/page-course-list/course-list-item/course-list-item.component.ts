@@ -7,13 +7,15 @@ import { CourseListItem } from '../course-list-item.model';
   styleUrls: ['./course-list-item.component.scss']
 })
 export class CourseListItemComponent implements OnInit {
-  @Input() public courseItem: CourseListItem;
-  @Input() public onEditCourse;
-
-  // Зачем использовать события, когда можно просто пробросить функцию?
+  @Input() courseItem: CourseListItem;
+  @Input() onEditCourse;
   @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
 
-  public formatDuration = (duration: number): string => {
+  constructor() {}
+
+  ngOnInit() {}
+
+  formatDuration = (duration: number): string => {
     const hours = Math.floor(duration / 60);
     const hoursStr = hours > 0 ? hours + 'h' : '';
     const minutes = duration % 60;
@@ -21,11 +23,7 @@ export class CourseListItemComponent implements OnInit {
     return hoursStr + ' ' + minutesStr;
   };
 
-  public delete = (id: CourseListItem['id']): void => {
+  delete = (id: CourseListItem['id']): void => {
     this.onDelete.emit(id);
   };
-
-  constructor() {}
-
-  ngOnInit() {}
 }

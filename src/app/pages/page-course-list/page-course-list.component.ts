@@ -7,8 +7,8 @@ import { LinkItem } from '../../core/breadcrumbs/link-item.model';
   styleUrls: ['./page-course-list.component.scss']
 })
 export class PageCourseListComponent implements OnInit {
-  public searchQuery: string = '';
-  public links: LinkItem[] = [
+  searchQuery: string = '';
+  links: LinkItem[] = [
     {
       href: '/',
       text: 'Courses'
@@ -19,7 +19,7 @@ export class PageCourseListComponent implements OnInit {
 
   ngOnInit() {}
 
-  public onSearchSubmit = (event): void => {
+  onSearchSubmit = (event): void => {
     event.preventDefault();
 
     if (this.searchQuery.trim() === '') {
@@ -30,7 +30,7 @@ export class PageCourseListComponent implements OnInit {
     this.searchQuery = '';
   };
 
-  public onSearchChange = (event): void => {
+  onSearchChange = (event): void => {
     console.log('Search on change value: ', event.target.value);
     this.searchQuery = event.target.value;
     console.log('Search on change searchQuery: ', this.searchQuery);

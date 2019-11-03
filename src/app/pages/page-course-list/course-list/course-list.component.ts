@@ -7,21 +7,7 @@ import { CourseListItem } from '../course-list-item.model';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  public courseItemList: CourseListItem[];
-
-  // Где лучше объявлять функции? Над или под constructor + ngOnInit?
-
-  public onLoadMore = (): void => {
-    console.log('Load more');
-  };
-
-  public onEditCourse = (id: CourseListItem['id']): void => {
-    console.log('Edit course id: ', id);
-  };
-
-  public onDeleteCourse = (id: CourseListItem['id']): void => {
-    console.log('Delete course id: ', id);
-  };
+  courseItemList: CourseListItem[];
 
   constructor() {}
 
@@ -47,4 +33,16 @@ export class CourseListComponent implements OnInit {
       }
     ];
   }
+
+  onLoadMore = (): void => {
+    console.log('Load more');
+  };
+
+  onEditCourse = (id: CourseListItem['id']): void => {
+    console.log('Edit course id: ', id);
+  };
+
+  onDeleteCourse = (id: CourseListItem['id']): void => {
+    console.log('Delete course id: ', id);
+  };
 }

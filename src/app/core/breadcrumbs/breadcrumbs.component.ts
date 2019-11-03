@@ -7,7 +7,7 @@ import { LinkItem } from './link-item.model';
   styleUrls: ['./breadcrumbs.component.scss']
 })
 export class BreadcrumbsComponent implements OnInit {
-  @Input() public links: LinkItem[];
+  @Input() links: LinkItem[];
 
   ngOnInit() {}
 }

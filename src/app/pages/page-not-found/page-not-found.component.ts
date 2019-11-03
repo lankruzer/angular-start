@@ -7,7 +7,7 @@ import { LinkItem } from '../../core/breadcrumbs/link-item.model';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
-  public links: LinkItem[] = [
+  links: LinkItem[] = [
     {
       href: '/',
       text: 'Courses'
