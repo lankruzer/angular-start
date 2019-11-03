@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LinkItem } from "../../core/breadcrumbs/link-item.model";
+import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,7 +7,7 @@ import { LinkItem } from "../../core/breadcrumbs/link-item.model";
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
-  public links : LinkItem[] = [
+  public links: LinkItem[] = [
     {
       href: '/',
       text: 'Courses'
@@ -15,12 +15,10 @@ export class PageNotFoundComponent implements OnInit {
     {
       href: '/page-not-found',
       text: 'Page not found'
-    },
+    }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

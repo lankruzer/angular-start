@@ -15,7 +15,6 @@
     }
 
     &-right {
-
     }
   }
 
@@ -62,7 +61,7 @@
     letter-spacing: normal;
     color: #2c2f3c;
     text-decoration: none;
-    transition: .25s;
+    transition: 0.25s;
 
     &:hover {
       color: #30b6dd;
@@ -91,7 +90,7 @@
     background-color: #30b6dd;
     border: 0;
     border-radius: 3px;
-    transition: .25s;
+    transition: 0.25s;
 
     &:hover {
       background-color: darken(#30b6dd, 5);

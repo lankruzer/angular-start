@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { CourseListItem } from "../course-list-item.model";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CourseListItem } from '../course-list-item.model';
 
 @Component({
   selector: 'app-course-list-item',
@@ -13,7 +13,7 @@ export class CourseListItemComponent implements OnInit {
   // Зачем использовать события, когда можно просто пробросить функцию?
   @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
 
-  public formatDuration = (duration: number) : string => {
+  public formatDuration = (duration: number): string => {
     const hours = Math.floor(duration / 60);
     const hoursStr = hours > 0 ? hours + 'h' : '';
     const minutes = duration % 60;
@@ -21,13 +21,11 @@ export class CourseListItemComponent implements OnInit {
     return hoursStr + ' ' + minutesStr;
   };
 
-  public delete = (id: CourseListItem["id"]) : void => {
+  public delete = (id: CourseListItem['id']): void => {
     this.onDelete.emit(id);
   };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

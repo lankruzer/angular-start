@@ -5,11 +5,11 @@
 
       <div class="header-action">
         <button type="button" *ngIf="!isAuth" (click)="onUserLogin()" class="btn">
-          <img src="{{ icUserLogin }}" alt="" class="btn__icon">
+          <img src="./assets/ic-user.svg" alt="" class="btn__icon" />
           User login
         </button>
         <button type="button" *ngIf="isAuth" (click)="onUserLogout()" class="btn">
-          <img src="{{ icUserLogout }}" alt="" class="btn__icon">
+          <img src="./assets/ic-exit.svg" alt="" class="btn__icon" />
           Log off
         </button>
       </div>

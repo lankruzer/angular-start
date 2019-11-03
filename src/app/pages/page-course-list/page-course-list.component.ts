@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LinkItem } from "../../core/breadcrumbs/link-item.model";
+import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 
 @Component({
   selector: 'app-page-course-list',
@@ -7,20 +7,19 @@ import { LinkItem } from "../../core/breadcrumbs/link-item.model";
   styleUrls: ['./page-course-list.component.scss']
 })
 export class PageCourseListComponent implements OnInit {
-  public searchQuery : string = '';
-  public links : LinkItem[] = [
+  public searchQuery: string = '';
+  public links: LinkItem[] = [
     {
       href: '/',
       text: 'Courses'
-    },
+    }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  public onSearchSubmit = (event) : void => {
+  public onSearchSubmit = (event): void => {
     event.preventDefault();
 
     if (this.searchQuery.trim() === '') {
@@ -31,7 +30,7 @@ export class PageCourseListComponent implements OnInit {
     this.searchQuery = '';
   };
 
-  public onSearchChange = (event) : void => {
+  public onSearchChange = (event): void => {
     console.log('Search on change value: ', event.target.value);
     this.searchQuery = event.target.value;
     console.log('Search on change searchQuery: ', this.searchQuery);

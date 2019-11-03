@@ -1,10 +1,6 @@
 <ul class="course-list">
   <li *ngFor="let courseItem of courseItemList" class="course-list-item">
-    <app-course-list-item
-      [courseItem]="courseItem"
-      (onDelete)="onDeleteCourse($event)"
-      [onEditCourse]="onEditCourse"
-    >
+    <app-course-list-item [courseItem]="courseItem" (onDelete)="onDeleteCourse($event)" [onEditCourse]="onEditCourse">
     </app-course-list-item>
   </li>
 </ul>
@@ -12,4 +8,3 @@
 <div class="wrapper-button">
   <button type="button" (click)="onLoadMore()" class="btn">Load more</button>
 </div>
-

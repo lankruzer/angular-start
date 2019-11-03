@@ -18,7 +18,7 @@
   line-height: 48px;
   border: solid 1px #d9dbe3;
   background-color: #ffffff;
-  background-image: url("./assets/ic-search.svg");
+  background-image: url('./assets/ic-search.svg');
   background-position: 12px center;
   background-repeat: no-repeat;
 }
@@ -36,7 +36,7 @@
   cursor: pointer;
   background-color: #9bc837;
   border: 0;
-  transition: .25s;
+  transition: 0.25s;
 
   &:hover {
     background-color: darken(#9bc837, 5);

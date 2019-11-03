@@ -11,9 +11,7 @@ export class SearchFormComponent implements OnInit {
   @Input() public onSearchSubmit;
   @Input() public onSearchChange;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
