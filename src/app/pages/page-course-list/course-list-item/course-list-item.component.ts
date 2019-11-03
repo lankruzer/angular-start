@@ -8,7 +8,7 @@ import { CourseListItem } from '../course-list-item.model';
 })
 export class CourseListItemComponent implements OnInit {
   @Input() courseItem: CourseListItem;
-  @Input() onEditCourse;
+  @Output() onEdit: EventEmitter<number> = new EventEmitter<number>();
   @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {}
@@ -21,6 +21,10 @@ export class CourseListItemComponent implements OnInit {
     const minutes = duration % 60;
     const minutesStr = minutes > 0 ? minutes + 'min' : '';
     return hoursStr + ' ' + minutesStr;
+  };
+
+  edit = (id: CourseListItem['id']): void => {
+    this.onEdit.emit(id);
   };
 
   delete = (id: CourseListItem['id']): void => {

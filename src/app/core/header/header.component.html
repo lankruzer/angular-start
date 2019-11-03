@@ -4,11 +4,11 @@
       <app-logo></app-logo>
 
       <div class="header-action">
-        <button type="button" *ngIf="!isAuth" (click)="onUserLogin()" class="btn">
+        <button type="button" *ngIf="!isAuth" (click)="onUserLogin()" class="btn btn-login">
           <img src="./assets/ic-user.svg" alt="" class="btn__icon">
           User login
         </button>
-        <button type="button" *ngIf="isAuth" (click)="onUserLogout()" class="btn">
+        <button type="button" *ngIf="isAuth" (click)="onUserLogout()" class="btn btn-logout">
           <img src='./assets/ic-exit.svg' alt="" class="btn__icon">
           Log off
         </button>

@@ -19,20 +19,17 @@ export class PageCourseListComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSearchSubmit = (event): void => {
-    event.preventDefault();
-
+  onSearchSubmit = (): void => {
     if (this.searchQuery.trim() === '') {
       return;
     }
-
-    console.log('Search on submit event: ', event);
+    console.log('Search on submit query: ', this.searchQuery);
     this.searchQuery = '';
   };
 
-  onSearchChange = (event): void => {
-    console.log('Search on change value: ', event.target.value);
-    this.searchQuery = event.target.value;
+  onSearchChange = (query: string): void => {
+    console.log('Search on change query: ', query);
+    this.searchQuery = query;
     console.log('Search on change searchQuery: ', this.searchQuery);
   };
 }

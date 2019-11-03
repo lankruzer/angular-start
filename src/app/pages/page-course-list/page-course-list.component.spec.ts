@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageCourseListComponent } from './page-course-list.component';
+import { BreadcrumbsComponent } from '../../core/breadcrumbs/breadcrumbs.component';
+import { SearchFormComponent } from './search-form/search-form.component';
+import { CourseListComponent } from './course-list/course-list.component';
+import { RouterModule } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('PageCourseListComponent', () => {
   let component: PageCourseListComponent;
@@ -8,7 +13,9 @@ describe('PageCourseListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PageCourseListComponent]
+      imports: [RouterModule.forRoot([])],
+      declarations: [PageCourseListComponent, BreadcrumbsComponent, SearchFormComponent, CourseListComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -20,5 +27,23 @@ describe('PageCourseListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Search change', () => {
+    component.searchQuery = '';
+    fixture.detectChanges();
+
+    component.onSearchChange('test value');
+
+    expect(component.searchQuery).toBe('test value');
+  });
+
+  it('Search submit', () => {
+    component.searchQuery = 'test value';
+    fixture.detectChanges();
+
+    component.onSearchSubmit();
+
+    expect(component.searchQuery).toBe('');
   });
 });
