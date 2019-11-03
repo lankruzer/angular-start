@@ -4,8 +4,10 @@ import { PageCourseListComponent } from './pages/page-course-list/page-course-li
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
-  { path: '', component: PageCourseListComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '', redirectTo: '/courses', pathMatch: 'full' },
+  { path: 'courses', component: PageCourseListComponent },
+  { path: '**', redirectTo: '/page-not-found', pathMatch: 'full' },
+  { path: 'page-not-found', component: PageNotFoundComponent }
 ];
 
 @NgModule({

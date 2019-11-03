@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
+import './assets/ic-exit.svg';
+import './assets/ic-user.svg';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  isAuth: boolean = false;
+  isAuth: boolean = true;
 
   constructor() {}
 
