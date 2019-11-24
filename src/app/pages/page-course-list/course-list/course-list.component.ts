@@ -15,7 +15,9 @@ export class CourseListComponent implements OnInit {
       duration: 120,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem perspiciatis placeat similique.'
+        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
+        ' perspiciatis placeat similique.',
+      topRated: true
     },
     {
       id: 1,
@@ -24,7 +26,9 @@ export class CourseListComponent implements OnInit {
       duration: 80,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem perspiciatis placeat similique.'
+        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
+        ' perspiciatis placeat similique.',
+      topRated: false
     }
   ];
 

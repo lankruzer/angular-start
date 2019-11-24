@@ -96,4 +96,21 @@
       background-color: darken(#30b6dd, 5);
     }
   }
+
+  &__top-rated {
+    border: 1px solid orange;
+  }
+
+  &--icon {
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: mathematical;
+    width: 20px;
+    height: 20px;
+
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
 }
