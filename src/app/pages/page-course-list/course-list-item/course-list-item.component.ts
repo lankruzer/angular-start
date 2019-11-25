@@ -10,7 +10,7 @@ export class CourseListItemComponent implements OnInit {
   @Input() courseItem: CourseListItem;
   @Output() onEdit: EventEmitter<number> = new EventEmitter<number>();
   @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
-
+  public date: string = 'her ego znaet';
   constructor() {}
 
   ngOnInit() {}

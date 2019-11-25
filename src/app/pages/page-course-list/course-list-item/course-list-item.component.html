@@ -1,4 +1,6 @@
-<article class="course" [ngClass]="{'course__top-rated':courseItem.topRated}">
+<article class="course"
+         [ngClass]="{'course__top-rated':courseItem.topRated}"
+         [appDateFreshStatus]="courseItem.creationDate">
   <div class="course-column-left">
     <header class="course-header">
       <h2 class="course-title">

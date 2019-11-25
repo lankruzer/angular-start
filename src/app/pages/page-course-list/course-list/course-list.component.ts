@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CourseListItem } from '../course-list-item.model';
 
 @Component({
@@ -7,11 +7,13 @@ import { CourseListItem } from '../course-list-item.model';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
+  // Куда лучше класть константы?
+  public MS_IN_DAY: number = 86400000;
   courseItemList: CourseListItem[] = [
     {
       id: 0,
       title: 'First course',
-      creationDate: '6 Nov, 2018',
+      creationDate: (Date.now() - this.MS_IN_DAY * 7).toString(),
       duration: 120,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
@@ -22,8 +24,19 @@ export class CourseListComponent implements OnInit {
     {
       id: 1,
       title: 'Second course',
-      creationDate: '12 Nov, 2019',
+      creationDate: (Date.now() - this.MS_IN_DAY).toString(),
       duration: 80,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
+        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
+        ' perspiciatis placeat similique.',
+      topRated: false
+    },
+    {
+      id: 2,
+      title: 'Third course',
+      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
+      duration: 40,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
         ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +

@@ -7,6 +7,7 @@ import { CourseListComponent } from './page-course-list/course-list/course-list.
 import { CourseListItemComponent } from './page-course-list/course-list-item/course-list-item.component';
 import { CoreModule } from '../core/core.module';
 import { SearchFormComponent } from './page-course-list/search-form/search-form.component';
+import { DateFreshStatusDirective } from './page-course-list/course-list-item/date-fresh-status.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SearchFormComponent } from './page-course-list/search-form/search-form.
     PageNotFoundComponent,
     CourseListComponent,
     CourseListItemComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    DateFreshStatusDirective
   ],
   imports: [CommonModule, RouterModule, CoreModule],
   exports: [PageCourseListComponent, PageNotFoundComponent]
