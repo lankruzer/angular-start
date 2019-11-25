@@ -48,9 +48,4 @@ describe('CourseListItemComponent', () => {
     fixture.debugElement.query(By.css('.btn-delete-course')).triggerEventHandler('click', null);
     expect(spy).toHaveBeenCalled();
   });
-
-  it('Format duration', () => {
-    const result = component.formatDuration(100);
-    expect(result).toBe('1h 40min');
-  });
 });

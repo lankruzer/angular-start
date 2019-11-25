@@ -4,9 +4,11 @@
   </div>
   <div *ngIf="courseItemList && courseItemList.length">
     <ul class="list">
-      <li *ngFor="let courseItem of courseItemList" class="course-list-item">
-        <app-course-list-item [courseItem]="courseItem" (onDelete)="onDeleteCourse($event)"
-                              (onEdit)="onEditCourse($event)">
+      <li *ngFor="let courseItem of courseItemList | orderByCreationDate" class="course-list-item">
+        <app-course-list-item
+          [courseItem]="courseItem"
+          (onDelete)="onDeleteCourse($event)"
+          (onEdit)="onEditCourse($event)">
         </app-course-list-item>
       </li>
     </ul>
