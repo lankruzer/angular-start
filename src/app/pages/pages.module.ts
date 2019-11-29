@@ -10,6 +10,7 @@ import { SearchFormComponent } from './page-course-list/search-form/search-form.
 import { DateFreshStatusDirective } from './page-course-list/course-list-item/date-fresh-status.directive';
 import { FormatDurationPipe } from './page-course-list/course-list-item/format-duration.pipe';
 import { OrderByCreationDatePipe } from './page-course-list/course-list/order-by-creation-date.pipe';
+import { OrderBySearchQueryPipe } from './page-course-list/course-list/order-by-search-query.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { OrderByCreationDatePipe } from './page-course-list/course-list/order-by
     SearchFormComponent,
     DateFreshStatusDirective,
     FormatDurationPipe,
-    OrderByCreationDatePipe
+    OrderByCreationDatePipe,
+    OrderBySearchQueryPipe
   ],
   imports: [CommonModule, RouterModule, CoreModule],
   exports: [PageCourseListComponent, PageNotFoundComponent]
