@@ -4,7 +4,6 @@
   </div>
   <div *ngIf="filteredCourseItemList && filteredCourseItemList.length">
     <ul class="list">
-<!--      <li *ngFor="let courseItem of courseItemList | orderByCreationDate | orderBySearchQuery:searchQuery"-->
       <li *ngFor="let courseItem of filteredCourseItemList | orderByCreationDate"
           class="course-list-item">
         <app-course-list-item

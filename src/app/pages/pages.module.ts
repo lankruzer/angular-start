@@ -11,6 +11,7 @@ import { DateFreshStatusDirective } from './page-course-list/course-list-item/da
 import { FormatDurationPipe } from './page-course-list/course-list-item/format-duration.pipe';
 import { OrderByCreationDatePipe } from './page-course-list/course-list/order-by-creation-date.pipe';
 import { OrderBySearchQueryPipe } from './page-course-list/course-list/order-by-search-query.pipe';
+import { PageLoginComponent } from './page-login/page-login.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,10 @@ import { OrderBySearchQueryPipe } from './page-course-list/course-list/order-by-
     DateFreshStatusDirective,
     FormatDurationPipe,
     OrderByCreationDatePipe,
-    OrderBySearchQueryPipe
+    OrderBySearchQueryPipe,
+    PageLoginComponent
   ],
   imports: [CommonModule, RouterModule, CoreModule],
-  exports: [PageCourseListComponent, PageNotFoundComponent]
+  exports: [PageCourseListComponent, PageNotFoundComponent, OrderByCreationDatePipe, OrderBySearchQueryPipe]
 })
 export class PagesModule {}
