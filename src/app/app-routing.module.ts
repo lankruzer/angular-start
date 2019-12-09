@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageCourseListComponent } from './pages/page-course-list/page-course-list.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { PageLoginComponent } from './pages/page-login/page-login.component';
-import { PageCourseListItemAddEditComponent } from './pages/page-course-list-item-add-edit/page-course-list-item-add-edit.component';
 
 const appRoutes: Routes = [
   {
