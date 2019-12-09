@@ -128,8 +128,7 @@ export class CourseListService {
 
   getListItemById(id: Number) {
     console.log('call getListItemById id = ', id);
-    const itemIndex = this.courseList.findIndex(item => item.id === id);
-    return this.courseList[itemIndex];
+    return this.courseList.find(item => item.id.toString() === id.toString());
   }
 
   createListItem(item: CourseListItem) {
@@ -139,7 +138,7 @@ export class CourseListService {
 
   editListItem(editItem: CourseListItem) {
     console.log('call editListItem');
-    const itemIndex = this.courseList.findIndex(item => item.id === editItem.id);
+    const itemIndex = this.courseList.findIndex(item => item.id.toString() === editItem.id.toString());
     this.courseList[itemIndex] = { ...this.courseList[itemIndex], ...editItem };
   }
 

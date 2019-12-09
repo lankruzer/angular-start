@@ -37,8 +37,8 @@ export class AuthService {
     return this.isAuthState;
   }
 
-  isAuth(userLogin: String): boolean {
-    console.log(`call isAuth with: userLogin: ${userLogin}`);
+  isAuth(): boolean {
+    console.log(`call isAuth with`);
     return this.isAuthState;
   }
 
