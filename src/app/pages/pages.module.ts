@@ -12,6 +12,8 @@ import { FormatDurationPipe } from './page-course-list/course-list-item/format-d
 import { OrderByCreationDatePipe } from './page-course-list/course-list/order-by-creation-date.pipe';
 import { OrderBySearchQueryPipe } from './page-course-list/course-list/order-by-search-query.pipe';
 import { PageLoginComponent } from './page-login/page-login.component';
+import { PageCourseListItemAddEditComponent } from './page-course-list-item-add-edit/page-course-list-item-add-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { PageLoginComponent } from './page-login/page-login.component';
     FormatDurationPipe,
     OrderByCreationDatePipe,
     OrderBySearchQueryPipe,
-    PageLoginComponent
+    PageLoginComponent,
+    PageCourseListItemAddEditComponent
   ],
-  imports: [CommonModule, RouterModule, CoreModule],
+  imports: [CommonModule, RouterModule, CoreModule, FormsModule, ReactiveFormsModule],
   exports: [PageCourseListComponent, PageNotFoundComponent, OrderByCreationDatePipe, OrderBySearchQueryPipe]
 })
 export class PagesModule {}

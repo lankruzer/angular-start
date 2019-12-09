@@ -1,0 +1,73 @@
+<app-breadcrumbs [links]="links"></app-breadcrumbs>
+
+<div class="container">
+  <form class="form-course" (ngSubmit)="onCourseSubmit($event)">
+    <h1 class="form-course__title">New course</h1>
+    <label class="input-wrapper">
+      <span class="input-wrapper-header">
+        <span class="input-wrapper__label">Title:</span>
+        <span class="input-wrapper__required">*required</span>
+      </span>
+      <input
+        class="input-wrapper__input"
+        type="text"
+        required="true"
+        name="title"
+        [ngModel]="course.title"
+        (ngModelChange)="course.title = $event"
+      >
+    </label>
+    <label class="input-wrapper">
+      <span class="input-wrapper-header">
+        <span class="input-wrapper__label">Description:</span>
+        <span class="input-wrapper__required">*required</span>
+      </span>
+      <textarea
+        class="input-wrapper__input input-wrapper__input--textarea"
+        name="description"
+        required="true"
+        [ngModel]="course.description"
+        (ngModelChange)="course.description = $event"
+      ></textarea>
+    </label>
+    <div class="form-course-duration">
+      <label class="input-wrapper">
+        <span class="input-wrapper-header">
+          <span class="input-wrapper__label">Duration:</span>
+          <span class="input-wrapper__required">*required</span>
+        </span>
+        <input
+          class="input-wrapper__input"
+          type="text"
+          name="duration"
+          required="true"
+          [ngModel]="course.duration"
+          (ngModelChange)="course.duration = $event"
+        >
+      </label>
+      <div class="duration-formatted">{{ course.duration | formatDuration }}</div>
+    </div>
+    <div class="form-course-date">
+      <label class="input-wrapper">
+        <span class="input-wrapper-header">
+          <span class="input-wrapper__label">Date:</span>
+          <span class="input-wrapper__required">*required</span>
+        </span>
+        <input
+          class="input-wrapper__input"
+          type="date"
+          name="date"
+          required="true"
+          [ngModel]="course.creationDate"
+          (ngModelChange)="course.creationDate = $event"
+        >
+      </label>
+    </div>
+    <div>Here will be separate component</div>
+
+    <div class="form-course-actions">
+      <button (click)="onCancelHandle($event)" class="btn btn--gray" type="button">Cancel</button>
+      <button class="btn" type="submit">Save</button>
+    </div>
+  </form>
+</div>
