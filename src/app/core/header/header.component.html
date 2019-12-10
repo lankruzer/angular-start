@@ -3,7 +3,7 @@
     <div class="wrapper">
       <app-logo></app-logo>
 
-      <div class="header-action">
+      <div class="header-action" *ngIf="isActions">
         <button type="button" *ngIf="!isAuth" (click)="onUserLogin()" class="btn btn-login">
           <img src="./assets/ic-user.svg" alt="" class="btn__icon">
           User login
