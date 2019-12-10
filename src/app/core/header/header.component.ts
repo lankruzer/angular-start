@@ -1,20 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import './assets/ic-exit.svg';
 import './assets/ic-user.svg';
-import { AuthService } from '../../pages/page-login/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { NavigationEnd, Router } from '@angular/router';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isActions: boolean = true;
   isAuth: boolean = false;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.isAuth = this.authService.isAuth('SomeLogin');
+  constructor(private authService: AuthService, private router: Router) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const { url, urlAfterRedirects } = event;
+        const checkedUrl = urlAfterRedirects ? urlAfterRedirects : url;
+        this.isActions = checkedUrl !== '/login';
+      }
+    });
   }
+
+  ngOnInit(): void {}
 
   onUserLogin = (): void => {
     console.log('User login');
