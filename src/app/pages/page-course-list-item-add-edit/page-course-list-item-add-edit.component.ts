@@ -3,7 +3,7 @@ import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 import { CourseListItem } from '../page-course-list/course-list-item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseListService } from '../page-course-list/course-list.service';
-import { AuthService } from "../page-login/auth.service";
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-page-course-list-item-add-edit',
@@ -12,16 +12,7 @@ import { AuthService } from "../page-login/auth.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageCourseListItemAddEditComponent implements OnInit {
-  links: LinkItem[] = [
-    {
-      href: '/',
-      text: 'Courses'
-    },
-    {
-      href: '#',
-      text: 'New course'
-    }
-  ];
+  isEdit: boolean = false;
   title: string = 'New course';
   course: CourseListItem = {
     id: null,
@@ -31,7 +22,16 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     description: '',
     topRated: false
   };
-  isEdit: boolean = false;
+  links: LinkItem[] = [
+    {
+      href: '/',
+      text: 'Courses'
+    },
+    {
+      href: '#',
+      text: this.isEdit ? this.course.title : 'New course'
+    }
+  ];
 
   constructor(
     private router: Router,
@@ -51,6 +51,7 @@ export class PageCourseListItemAddEditComponent implements OnInit {
       this.isEdit = true;
       this.title = 'Edit course';
       this.course = { ...this.courseListService.getListItemById(this.route.snapshot.params.id) };
+      this.links[1].text = this.course.title;
     }
   }
 

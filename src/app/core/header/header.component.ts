@@ -27,14 +27,10 @@ export class HeaderComponent implements OnInit {
     this.isAuth = this.authService.isAuth();
   }
 
-  onUserLogin = (): void => {
-    console.log('User login');
-    this.isAuth = this.authService.login('1 user', '123456');
-  };
-
   onUserLogout = (): void => {
     console.log('User logout');
 
-    this.isAuth = this.authService.logout('1 user');
+    this.isAuth = this.authService.logout();
+    this.router.navigate(['login']);
   };
 }

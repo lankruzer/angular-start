@@ -1,15 +1,27 @@
 <div class="container">
   <div class="form-login-wrapper">
-    <form class="form-login">
+    <form class="form-login" (ngSubmit)="onLoginSubmit($event)">
       <h1 class="form-login__title">Login</h1>
       <label class="input-wrapper">
         <span class="input-wrapper__label">E-mail:</span>
-        <input class="input-wrapper__input" type="email" placeholder="example@email.com">
+        <input class="input-wrapper__input"
+               type="email"
+               placeholder="example@email.com"
+               name="email"
+               required
+               [ngModel]="email"
+               (ngModelChange)="email = $event">
       </label>
       <label class="input-wrapper">
         <span class="input-wrapper__label">Password:</span>
-        <input class="input-wrapper__input" type="password">
+        <input class="input-wrapper__input"
+               type="password"
+               name="password"
+               required
+               [ngModel]="password"
+               (ngModelChange)="password = $event">
       </label>
+      <p class="error" *ngIf="error">{{error}}</p>
       <div class="form-login-footer">
         <a routerLink="/page-not-found">Forgot password</a>
         <button class="btn btn-login" type="submit">

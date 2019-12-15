@@ -10,6 +10,7 @@ export class AuthService {
     {
       id: 0,
       login: '1 user',
+      email: 'user1@gmail.com',
       firstName: '1',
       lastName: 'Name',
       password: '123456'
@@ -17,22 +18,45 @@ export class AuthService {
     {
       id: 1,
       login: '2 user',
+      email: 'user2@gmail.com',
       firstName: '2',
       lastName: 'Name',
-      password: '123456'
+      password: '654321'
     }
   ];
 
   constructor() {}
 
-  login(userLogin: String, userPassword: String): boolean {
-    console.log(`call login with: userLogin: ${userLogin}, userPassword: ${userPassword}`);
+  login(email: String, userPassword: String): { error?: string; authState: boolean; user?: User } {
+    console.log(`call login with: userLogin: ${email}, userPassword: ${userPassword}`);
+
+    const user = this.userList.find(user => user.email === email.trim());
+
+    if (!user) {
+      this.isAuthState = false;
+      return {
+        error: 'User with this credentials not found',
+        authState: this.isAuthState
+      };
+    }
+
+    if (user.password !== userPassword) {
+      this.isAuthState = false;
+      return {
+        error: 'Password incorrect, please try again',
+        authState: this.isAuthState
+      };
+    }
+
     this.isAuthState = true;
-    return this.isAuthState;
+    return {
+      authState: this.isAuthState,
+      user
+    };
   }
 
-  logout(userLogin: String): boolean {
-    console.log(`call logout with: userLogin: ${userLogin}`);
+  logout(): boolean {
+    console.log(`call logout`);
     this.isAuthState = false;
     return this.isAuthState;
   }

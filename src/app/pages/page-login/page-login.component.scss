@@ -18,7 +18,7 @@
   padding: 24px;
   width: 100%;
   max-width: 368px;
-  height: 286px;
+  min-height: 286px;
   border-radius: 6px;
   box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
   background-color: #ffffff;
@@ -95,4 +95,8 @@
     border: solid 1px #d9dbe3;
     background-color: #ffffff;
   }
+}
+
+.error {
+  color: red;
 }
