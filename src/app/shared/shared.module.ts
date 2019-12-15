@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { InputComponent } from './input/input.component';
 import { AuthService } from './services/auth.service';
+import { FormatDurationPipe } from './pipes/format-duration.pipe';
 
 @NgModule({
-  declarations: [ButtonComponent, InputComponent, AuthService],
+  declarations: [ButtonComponent, InputComponent, FormatDurationPipe],
+  providers: [AuthService],
   imports: [CommonModule],
-  exports: [ButtonComponent]
+  exports: [ButtonComponent, FormatDurationPipe]
 })
 export class SharedModule {}

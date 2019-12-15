@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageCourseListComponent } from './pages/page-course-list/page-course-list.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {
@@ -17,8 +15,20 @@ const appRoutes: Routes = [
     path: 'courses',
     loadChildren: () => import('./pages/page-course-list/page-course-list.module').then(m => m.PageCourseListModule)
   },
-  { path: 'courses/:id', component: PageCourseListItemAddEditComponent },
-  { path: 'courses/new', component: PageCourseListItemAddEditComponent },
+  {
+    path: 'courses/:id',
+    loadChildren: () =>
+      import('./pages/page-course-list-item-add-edit/page-course-list-item-add-edit.module').then(
+        m => m.PageCourseListItemAddEditModule
+      )
+  },
+  {
+    path: 'courses/new',
+    loadChildren: () =>
+      import('./pages/page-course-list-item-add-edit/page-course-list-item-add-edit.module').then(
+        m => m.PageCourseListItemAddEditModule
+      )
+  },
   {
     path: '**',
     redirectTo: '/page-not-found',

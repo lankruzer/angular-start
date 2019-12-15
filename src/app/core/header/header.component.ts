@@ -1,8 +1,8 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import './assets/ic-exit.svg';
 import './assets/ic-user.svg';
-import { AuthService } from '../../shared/services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',

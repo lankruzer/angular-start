@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 import { CourseListItem } from '../page-course-list/course-list-item.model';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-course-list-item-add-edit',

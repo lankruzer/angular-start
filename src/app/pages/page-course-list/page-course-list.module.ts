@@ -8,7 +8,7 @@ import { CoreModule } from '../../core/core.module';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { OrderByCreationDatePipe } from './course-list/order-by-creation-date.pipe';
 import { DateFreshStatusDirective } from './course-list-item/date-fresh-status.directive';
-import { FormatDurationPipe } from './course-list-item/format-duration.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,9 +17,8 @@ import { FormatDurationPipe } from './course-list-item/format-duration.pipe';
     CourseListItemComponent,
     SearchFormComponent,
     OrderByCreationDatePipe,
-    DateFreshStatusDirective,
-    FormatDurationPipe
+    DateFreshStatusDirective
   ],
-  imports: [CommonModule, PageCourseListRoutingModule, CoreModule]
+  imports: [CommonModule, PageCourseListRoutingModule, CoreModule, SharedModule]
 })
 export class PageCourseListModule {}
