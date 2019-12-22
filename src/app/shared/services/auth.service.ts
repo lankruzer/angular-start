@@ -5,7 +5,7 @@ import { User } from '../../user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private isAuthState: boolean = true;
+  private isAuthState: boolean = false;
   userList: User[] = [
     {
       id: 0,
@@ -62,7 +62,7 @@ export class AuthService {
   }
 
   isAuth(): boolean {
-    console.log(`call isAuth with`);
+    console.log('call isAuth - ', this.isAuthState);
     return this.isAuthState;
   }
 

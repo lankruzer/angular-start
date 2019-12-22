@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const appRoutes: Routes = [
   {
@@ -13,10 +14,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'courses',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/page-course-list/page-course-list.module').then(m => m.PageCourseListModule)
   },
   {
     path: 'courses/:id',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/page-course-list-item-add-edit/page-course-list-item-add-edit.module').then(
         m => m.PageCourseListItemAddEditModule
@@ -24,6 +27,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'courses/new',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/page-course-list-item-add-edit/page-course-list-item-add-edit.module').then(
         m => m.PageCourseListItemAddEditModule

@@ -3,7 +3,6 @@ import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 import { CourseListItem } from '../page-course-list/course-list-item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseListService } from '../page-course-list/course-list.service';
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-page-course-list-item-add-edit',
@@ -33,15 +32,7 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     }
   ];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private courseListService: CourseListService,
-    private authService: AuthService
-  ) {
-    if (!this.authService.isAuth()) {
-      this.router.navigate(['/login']);
-    }
+  constructor(private router: Router, private route: ActivatedRoute, private courseListService: CourseListService) {
     if (
       this.route &&
       this.route.snapshot &&
