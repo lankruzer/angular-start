@@ -1,75 +1,31 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../user.model';
+import { HttpClient } from '@angular/common/http';
+import { API_URL } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isAuthState: boolean = false;
-  userList: User[] = [
-    {
-      id: 0,
-      login: '1 user',
-      email: 'user1@gmail.com',
-      firstName: '1',
-      lastName: 'Name',
-      password: '123456'
-    },
-    {
-      id: 1,
-      login: '2 user',
-      email: 'user2@gmail.com',
-      firstName: '2',
-      lastName: 'Name',
-      password: '654321'
-    }
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  login(email: String, userPassword: String): { error?: string; authState: boolean; user?: User } {
-    console.log(`call login with: userLogin: ${email}, userPassword: ${userPassword}`);
-
-    const user = this.userList.find(user => user.email === email.trim());
-
-    if (!user) {
-      this.isAuthState = false;
-      return {
-        error: 'User with this credentials not found',
-        authState: this.isAuthState
-      };
-    }
-
-    if (user.password !== userPassword) {
-      this.isAuthState = false;
-      return {
-        error: 'Password incorrect, please try again',
-        authState: this.isAuthState
-      };
-    }
-
-    this.isAuthState = true;
-    return {
-      authState: this.isAuthState,
-      user
-    };
+  login(login: string, password: string) {
+    return this.http.post<{ token?: string; status?: number; error?: string }>(`${API_URL}/auth/login`, {
+      login,
+      password
+    });
   }
 
-  logout(): boolean {
-    console.log(`call logout`);
-    this.isAuthState = false;
-    return this.isAuthState;
+  logout(): void {
+    window.localStorage.removeItem('token');
   }
 
   isAuth(): boolean {
-    console.log('call isAuth - ', this.isAuthState);
-    return this.isAuthState;
+    const token = window.localStorage.getItem('token');
+    return !!token;
   }
 
-  getUserInfo(userLogin: String): object {
-    console.log(`call getUserInfo with: userLogin: ${userLogin}`);
-    return {
-      userLogin: 'SomeLogin'
-    };
+  getUserInfo() {
+    return this.http.post<any>(`${API_URL}/auth/userinfo`, { token: window.localStorage.token });
   }
 }

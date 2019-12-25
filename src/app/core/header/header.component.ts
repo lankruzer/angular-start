@@ -10,6 +10,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  login: string;
   isActions: boolean = true;
   isAuth: boolean = false;
 
@@ -18,19 +19,35 @@ export class HeaderComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const { url, urlAfterRedirects } = event;
         const checkedUrl = urlAfterRedirects ? urlAfterRedirects : url;
+        this.updateUserState();
         this.isActions = checkedUrl !== '/login';
       }
     });
   }
 
   ngOnInit() {
+    this.updateUserState();
+  }
+
+  updateUserState() {
     this.isAuth = this.authService.isAuth();
+    if (this.isAuth) {
+      this.authService.getUserInfo().subscribe(
+        data => {
+          this.login = data.login || '';
+          return data;
+        },
+        error => {
+          console.error('get user error = ', error);
+          return error;
+        }
+      );
+    }
   }
 
   onUserLogout = (): void => {
-    console.log('User logout');
-
-    this.isAuth = this.authService.logout();
+    this.authService.logout();
+    this.isAuth = false;
     this.router.navigate(['login']);
   };
 }

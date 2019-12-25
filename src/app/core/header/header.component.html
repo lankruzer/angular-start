@@ -6,11 +6,11 @@
       <div class="header-action" *ngIf="isActions">
         <button type="button" *ngIf="!isAuth" routerLink="/login" class="btn btn-login">
           <img src="./assets/ic-user.svg" alt="" class="btn__icon">
-          User login
+          Log in
         </button>
         <button type="button" *ngIf="isAuth" (click)="onUserLogout()" class="btn btn-logout">
           <img src='./assets/ic-exit.svg' alt="" class="btn__icon">
-          Log off
+          {{ login }} Log off
         </button>
       </div>
     </div>

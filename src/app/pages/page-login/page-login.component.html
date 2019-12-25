@@ -3,14 +3,14 @@
     <form class="form-login" (ngSubmit)="onLoginSubmit($event)">
       <h1 class="form-login__title">Login</h1>
       <label class="input-wrapper">
-        <span class="input-wrapper__label">E-mail:</span>
+        <span class="input-wrapper__label">Login:</span>
         <input class="input-wrapper__input"
-               type="email"
-               placeholder="example@email.com"
-               name="email"
+               type="text"
+               placeholder="some login"
+               name="login"
                required
-               [ngModel]="email"
-               (ngModelChange)="email = $event">
+               [ngModel]="login"
+               (ngModelChange)="login = $event">
       </label>
       <label class="input-wrapper">
         <span class="input-wrapper__label">Password:</span>
@@ -21,7 +21,7 @@
                [ngModel]="password"
                (ngModelChange)="password = $event">
       </label>
-      <p class="error" *ngIf="error">{{error}}</p>
+      <p class="error">{{this.error}}</p>
       <div class="form-login-footer">
         <a routerLink="/page-not-found">Forgot password</a>
         <button class="btn btn-login" type="submit">
