@@ -7,11 +7,11 @@ import { CourseListItem } from '../course-list-item.model';
 export class OrderByCreationDatePipe implements PipeTransform {
   transform(courseList: CourseListItem[], ...args: any[]): any {
     return courseList.sort((itemA, itemB) => {
-      if (itemA.creationDate === itemB.creationDate) {
+      if (itemA.date === itemB.date) {
         return 0;
       }
 
-      if (itemA.creationDate > itemB.creationDate) {
+      if (itemA.date > itemB.date) {
         return -1;
       }
 

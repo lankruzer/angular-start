@@ -6,8 +6,8 @@ import { CourseListItem } from '../course-list-item.model';
 })
 export class OrderBySearchQueryPipe implements PipeTransform {
   transform(courseList: CourseListItem[], searchQuery: string, ...args: any[]): any {
-    return courseList.filter(({ title }) => {
-      return title.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1;
+    return courseList.filter(({ name }) => {
+      return name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1;
     });
   }
 }

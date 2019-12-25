@@ -1,12 +1,12 @@
 <article class="course"
-         [ngClass]="{'course__top-rated':courseItem.topRated}"
-         [appDateFreshStatus]="courseItem.creationDate">
+         [ngClass]="{'course__top-rated':courseItem.isTopRated}"
+         [appDateFreshStatus]="courseItem.date">
   <div class="course-column-left">
     <header class="course-header">
       <h2 class="course-title">
         <a routerLink="{{ './' + courseItem.id }}" class="course-link">
-          {{ courseItem.title | titlecase }}
-          <span *ngIf="courseItem.topRated" class="course--icon">
+          {{ courseItem.name | titlecase }}
+          <span *ngIf="courseItem.isTopRated" class="course--icon">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
                  x="0px" y="0px" viewBox="0 0 47.94 47.94" style="enable-background:new 0 0 47.94 47.94;"
                  xml:space="preserve">
@@ -19,11 +19,11 @@
       <div class="course-info">
         <div class="course-info-item">
           Duration:
-          <strong> {{ courseItem.duration | formatDuration }}</strong>
+          <strong> {{ courseItem.length | formatDuration }}</strong>
         </div>
         <div class="course-info-item">
           Publication:
-          <strong> {{ courseItem.creationDate | date }}</strong>
+          <strong> {{ courseItem.date | date }}</strong>
         </div>
       </div>
     </header>

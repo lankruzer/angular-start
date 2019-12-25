@@ -9,22 +9,32 @@ import { CourseListService } from '../course-list.service';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnChanges {
+  start = 0;
+  count = 10;
+  isLoadMore = true;
   pipe: any = new OrderBySearchQueryPipe();
   @Input() searchQuery: string = '';
-  courseItemList: CourseListItem[] = [];
-  filteredCourseItemList: CourseListItem[] = [...this.courseItemList];
+  filteredCourseItemList: any = [];
 
   constructor(private courseListService: CourseListService) {
-    this.courseItemList = courseListService.getList();
+    courseListService.getList(this.start, this.count).subscribe(list => {
+      this.filteredCourseItemList = list;
+    });
   }
 
   ngOnChanges() {
-    console.log('ngOnChanges this.courseItemList = ', this.courseItemList);
-    this.filteredCourseItemList = this.pipe.transform(this.courseItemList, this.searchQuery);
+    this.courseListService.getListWithQuery(this.start, this.count, this.searchQuery).subscribe((list: any) => {
+      this.isLoadMore = list.length >= this.count;
+      this.filteredCourseItemList = [...list];
+    });
   }
 
   onLoadMore = (): void => {
-    console.log('Load more');
+    this.start += this.count;
+    this.courseListService.getList(this.start, this.count).subscribe((list: any) => {
+      this.isLoadMore = list.length >= this.count;
+      this.filteredCourseItemList = [...this.filteredCourseItemList, ...list];
+    });
   };
 
   onEditCourse = (id: CourseListItem['id']): void => {
@@ -32,12 +42,13 @@ export class CourseListComponent implements OnChanges {
   };
 
   onDeleteCourse = (id: CourseListItem['id']): void => {
-    console.log('Delete course id: ', id);
     const isConfirmed = window.confirm('Do you really want to delete this course?');
-
     if (isConfirmed) {
-      this.courseItemList = this.courseListService.deleteListItem(id);
-      this.filteredCourseItemList = this.pipe.transform(this.courseItemList, this.searchQuery);
+      this.courseListService.deleteListItem(id).subscribe(res => {
+        this.courseListService.getList(0, this.start + this.count).subscribe(list => {
+          this.filteredCourseItemList = list;
+        });
+      });
     }
   };
 }

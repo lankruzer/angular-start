@@ -13,7 +13,7 @@
         </app-course-list-item>
       </li>
     </ul>
-    <div class="wrapper-button">
+    <div class="wrapper-button" *ngIf="isLoadMore">
       <button type="button" (click)="onLoadMore()" class="btn btn-load-more">Load more</button>
     </div>
   </div>

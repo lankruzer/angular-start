@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 import { CourseListItem } from '../page-course-list/course-list-item.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,14 +12,14 @@ import { CourseListService } from '../page-course-list/course-list.service';
 })
 export class PageCourseListItemAddEditComponent implements OnInit {
   isEdit: boolean = false;
-  title: string = 'New course';
+  name: string = 'New course';
   course: CourseListItem = {
     id: null,
-    title: '',
-    creationDate: Date.now().toString(),
-    duration: 0,
+    name: '',
+    date: Date.now().toString(),
+    length: 0,
     description: '',
-    topRated: false
+    isTopRated: false
   };
   links: LinkItem[] = [
     {
@@ -28,11 +28,16 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     },
     {
       href: '#',
-      text: this.isEdit ? this.course.title : 'New course'
+      text: this.isEdit ? this.course.name : 'New course'
     }
   ];
 
-  constructor(private router: Router, private route: ActivatedRoute, private courseListService: CourseListService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private courseListService: CourseListService,
+    private cdRef: ChangeDetectorRef
+  ) {
     if (
       this.route &&
       this.route.snapshot &&
@@ -40,9 +45,14 @@ export class PageCourseListItemAddEditComponent implements OnInit {
       this.route.snapshot.params.id.toString() !== 'new'
     ) {
       this.isEdit = true;
-      this.title = 'Edit course';
-      this.course = { ...this.courseListService.getListItemById(this.route.snapshot.params.id) };
-      this.links[1].text = this.course.title;
+      this.name = 'Edit course';
+      this.courseListService
+        .getListItemById(this.route.snapshot.params.id)
+        .subscribe((courseList: CourseListItem[]) => {
+          this.course = { ...courseList[0] };
+          this.cdRef.markForCheck();
+          this.links[1].text = this.course.name;
+        });
     }
   }
 
@@ -66,11 +76,13 @@ export class PageCourseListItemAddEditComponent implements OnInit {
 
     console.log('onCourseSubmit course = ', this.course);
     if (this.isEdit) {
-      this.courseListService.editListItem(this.course);
+      this.courseListService.editListItem(this.course).subscribe(res => {
+        this.router.navigate(['/courses']);
+      });
     } else {
-      this.courseListService.createListItem(this.course);
+      this.courseListService.createListItem(this.course).subscribe(res => {
+        this.router.navigate(['/courses']);
+      });
     }
-
-    this.router.navigate(['/courses']);
   }
 }

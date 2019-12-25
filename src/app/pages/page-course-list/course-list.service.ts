@@ -1,152 +1,42 @@
 import { Injectable } from '@angular/core';
 import { CourseListItem } from './course-list-item.model';
+import { HttpClient } from '@angular/common/http';
+import { API_URL } from '../../shared/constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseListService {
   public MS_IN_DAY: number = 86400000;
-  public courseList: CourseListItem[] = [
-    {
-      id: 0,
-      title: 'First course',
-      creationDate: (Date.now() - this.MS_IN_DAY * 7).toString(),
-      duration: 120,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: true
-    },
-    {
-      id: 1,
-      title: 'Second course',
-      creationDate: (Date.now() - this.MS_IN_DAY).toString(),
-      duration: 80,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 2,
-      title: 'Third course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 3,
-      title: '4 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 4,
-      title: '5 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 5,
-      title: '6 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 6,
-      title: '7 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 7,
-      title: '8 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 8,
-      title: '9 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    },
-    {
-      id: 9,
-      title: '10 course',
-      creationDate: (Date.now() + this.MS_IN_DAY * 7).toString(),
-      duration: 40,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid blanditiis consequatur cum dignissimos' +
-        ' eius excepturi laborum minus, modi neque, quas repellendus repudiandae sequi vero. Ab dicta dolorem' +
-        ' perspiciatis placeat similique.',
-      topRated: false
-    }
-  ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getList() {
-    console.log('call getList');
-    return this.courseList;
+  getList(start, count) {
+    return this.http.get(`${API_URL}/courses`, { params: { start, count } });
   }
 
-  getListItemById(id: Number) {
-    console.log('call getListItemById id = ', id);
-    return this.courseList.find(item => item.id.toString() === id.toString());
+  getListItemById(id: string) {
+    return this.http.get(`${API_URL}/courses`, { params: { id } });
+  }
+
+  getListWithQuery(start, count, query) {
+    return this.http.get(`${API_URL}/courses`, { params: { start, count, textFragment: query } });
   }
 
   createListItem(item: CourseListItem) {
     console.log('call createListItem');
-    this.courseList.push(item);
+    // this.courseList.push(item);
+    return this.http.post(`${API_URL}/courses`, item);
   }
 
-  editListItem(editItem: CourseListItem) {
+  editListItem(item: CourseListItem) {
     console.log('call editListItem');
-    const itemIndex = this.courseList.findIndex(item => item.id.toString() === editItem.id.toString());
-    this.courseList[itemIndex] = { ...this.courseList[itemIndex], ...editItem };
+    return this.http.patch(`${API_URL}/courses/${item.id}`, item);
+    // const itemIndex = this.courseList.findIndex(item => item.id.toString() === editItem.id.toString());
+    // this.courseList[itemIndex] = { ...this.courseList[itemIndex], ...editItem };
   }
 
-  deleteListItem(deleteItemId: Number) {
-    console.log('call deleteListItem');
-    const itemIndex = this.courseList.findIndex(item => item.id === deleteItemId);
-    console.log('service courseList = ', this.courseList);
-    this.courseList.splice(itemIndex, 1);
-    return this.courseList;
+  deleteListItem(id: number) {
+    return this.http.delete(`${API_URL}/courses/${id}`);
   }
 }
