@@ -4,16 +4,17 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor() {
-    console.log('INTER token  = ', window.localStorage.getItem('token'));
-  }
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    req = req.clone({
-      setHeaders: {
-        Authorization: window.localStorage.getItem('token')
-      }
-    });
+  constructor() {}
 
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: token
+        }
+      });
+    }
     return next.handle(req);
   }
 }

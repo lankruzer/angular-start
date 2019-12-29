@@ -24,7 +24,6 @@ export class SearchFormComponent implements OnInit {
         mergeMap(search => of(search).pipe(delay(500)))
       )
       .subscribe(value => {
-        console.log('res value - ', value);
         if (value.length > 2) {
           this.onSearchChange.emit(value);
         }

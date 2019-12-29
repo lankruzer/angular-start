@@ -7,6 +7,7 @@ import { FormatDurationPipe } from './pipes/format-duration.pipe';
 import { AuthGuard } from './guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/TokenInterceptor';
+import { LoaderInterceptor } from './interceptors/LoaderInterceptor';
 
 @NgModule({
   declarations: [ButtonComponent, InputComponent, FormatDurationPipe],
@@ -16,6 +17,11 @@ import { TokenInterceptor } from './interceptors/TokenInterceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
       multi: true
     }
   ],
