@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { of, Subject, Subscription } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-form',
@@ -10,9 +12,30 @@ export class SearchFormComponent implements OnInit {
   @Output() onSearchSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() onSearchChange: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {}
+  keyUp = new Subject<KeyboardEvent>();
+  private subscription: Subscription;
+
+  constructor() {
+    this.subscription = this.keyUp
+      .pipe(
+        map(event => event.target.value),
+        debounceTime(250),
+        distinctUntilChanged(),
+        mergeMap(search => of(search).pipe(delay(500)))
+      )
+      .subscribe(value => {
+        console.log('res value - ', value);
+        if (value.length > 2) {
+          this.onSearchChange.emit(value);
+        }
+      });
+  }
 
   ngOnInit() {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   searchSubmit(event): void {
     event.preventDefault();

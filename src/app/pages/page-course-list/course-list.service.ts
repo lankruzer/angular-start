@@ -25,15 +25,12 @@ export class CourseListService {
 
   createListItem(item: CourseListItem) {
     console.log('call createListItem');
-    // this.courseList.push(item);
     return this.http.post(`${API_URL}/courses`, item);
   }
 
   editListItem(item: CourseListItem) {
     console.log('call editListItem');
     return this.http.patch(`${API_URL}/courses/${item.id}`, item);
-    // const itemIndex = this.courseList.findIndex(item => item.id.toString() === editItem.id.toString());
-    // this.courseList[itemIndex] = { ...this.courseList[itemIndex], ...editItem };
   }
 
   deleteListItem(id: number) {

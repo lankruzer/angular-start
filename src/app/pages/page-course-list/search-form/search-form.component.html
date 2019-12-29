@@ -4,9 +4,7 @@
       type="text"
       placeholder="Text to search"
       class="input"
-      (input)="searchChange($event)"
-      [value]="searchQuery"
+      (keyup)="keyUp.next($event)"
     />
   </label>
-  <button type="submit" class="btn">Search</button>
 </form>
