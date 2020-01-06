@@ -3,8 +3,8 @@
 <div class="wrapper-page-content">
   <div class="container">
     <div class="wrapper-search">
-      <app-search-form [searchQuery]="searchQuery" (onSearchChange)="onSearchChange($event)"
-                       (onSearchSubmit)="onSearchSubmit()">
+      <app-search-form [searchQuery]="searchQuery" (searchChange)="searchChange($event)"
+                       (searchSubmit)="searchSubmit()">
       </app-search-form>
     </div>
 

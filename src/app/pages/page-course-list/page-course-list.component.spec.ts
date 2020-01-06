@@ -33,7 +33,7 @@ describe('PageCourseListComponent', () => {
     component.searchQuery = '';
     fixture.detectChanges();
 
-    component.onSearchChange('test value');
+    component.searchChange('test value');
 
     expect(component.searchQuery).toBe('test value');
   });
@@ -42,7 +42,7 @@ describe('PageCourseListComponent', () => {
     component.searchQuery = 'test value';
     fixture.detectChanges();
 
-    component.onSearchSubmit();
+    component.searchSubmit();
 
     expect(component.searchQuery).toBe('');
   });

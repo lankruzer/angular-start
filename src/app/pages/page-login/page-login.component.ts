@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-page-login',
@@ -13,7 +12,7 @@ export class PageLoginComponent implements OnInit {
   private password: string;
   private error: string;
 
-  constructor(private service: AuthService, private router: Router, private http: HttpClient) {}
+  constructor(private service: AuthService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -21,9 +20,8 @@ export class PageLoginComponent implements OnInit {
     event.preventDefault();
     this.error = '';
     this.service.login(this.login, this.password).subscribe(
-      ({ token }) => {
-        if (token) {
-          window.localStorage.setItem('token', token);
+      (isAuth) => {
+        if (isAuth) {
           this.router.navigate(['courses']);
           return;
         }

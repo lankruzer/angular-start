@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../user.model';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../constants/constants';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+    isAuth: BehaviorSubject<string>;
 
-  login(login: string, password: string) {
-    return this.http.post<{ token?: string; status?: number; error?: string }>(`${API_URL}/auth/login`, {
-      login,
-      password
-    });
+  constructor(private http: HttpClient) {
+    this.isAuth = new BehaviorSubject<string>(localStorage.getItem('token'));
   }
 
-  logout(): void {
-    window.localStorage.removeItem('token');
+  login(login, password) {
+    return this.http.post<any>(`${API_URL}/auth/login`, { login, password })
+      .pipe(map(({ token }) => {
+        localStorage.setItem('token', token);
+        this.isAuth.next(token);
+        return token;
+      }));
   }
 
-  isAuth(): boolean {
-    const token = window.localStorage.getItem('token');
-    return !!token;
+  logout() {
+    localStorage.removeItem('token');
+    this.isAuth.next('');
   }
 
   getUserInfo() {

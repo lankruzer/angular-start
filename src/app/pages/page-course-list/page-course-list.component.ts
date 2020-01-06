@@ -7,7 +7,7 @@ import { LinkItem } from '../../core/breadcrumbs/link-item.model';
   styleUrls: ['./page-course-list.component.scss']
 })
 export class PageCourseListComponent implements OnInit {
-  searchQuery: string = '';
+  searchQuery = '';
   links: LinkItem[] = [
     {
       href: '/',
@@ -19,17 +19,17 @@ export class PageCourseListComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSearchSubmit = (): void => {
+  searchSubmit(): void {
     if (this.searchQuery.trim() === '') {
       return;
     }
     console.log('Search on submit query: ', this.searchQuery);
     this.searchQuery = '';
-  };
+  }
 
-  onSearchChange = (query: string): void => {
+  searchChange(query: string): void {
     console.log('Search on change query: ', query);
     this.searchQuery = query;
     console.log('Search on change searchQuery: ', this.searchQuery);
-  };
+  }
 }

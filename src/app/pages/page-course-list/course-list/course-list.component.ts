@@ -11,44 +11,39 @@ import { CourseListService } from '../course-list.service';
 export class CourseListComponent implements OnChanges {
   start = 0;
   count = 10;
-  isLoadMore = true;
+  isLoadMore = false;
   pipe: any = new OrderBySearchQueryPipe();
-  @Input() searchQuery: string = '';
+  @Input() searchQuery = '';
   filteredCourseItemList: any = [];
 
   constructor(private courseListService: CourseListService) {
-    courseListService.getList(this.start, this.count).subscribe(list => {
+    courseListService.getList(this.start, this.count);
+    // @ts-ignore
+    this.courseListService.courses.subscribe(({ list, isLoadMore}) => {
       this.filteredCourseItemList = list;
+      this.isLoadMore = isLoadMore;
     });
   }
 
   ngOnChanges() {
-    this.courseListService.getListWithQuery(this.start, this.count, this.searchQuery).subscribe((list: any) => {
-      this.isLoadMore = list.length >= this.count;
-      this.filteredCourseItemList = [...list];
-    });
+    this.courseListService.getList(this.start, this.count, this.searchQuery);
   }
 
-  onLoadMore = (): void => {
+  onLoadMore(): void {
     this.start += this.count;
-    this.courseListService.getList(this.start, this.count).subscribe((list: any) => {
-      this.isLoadMore = list.length >= this.count;
-      this.filteredCourseItemList = [...this.filteredCourseItemList, ...list];
-    });
-  };
+    this.courseListService.getList(this.start, this.count);
+  }
 
-  onEditCourse = (id: CourseListItem['id']): void => {
+  onEditCourse(id: CourseListItem['id']): void {
     console.log('Edit course id: ', id);
-  };
+  }
 
-  onDeleteCourse = (id: CourseListItem['id']): void => {
+  onDeleteCourse(id: CourseListItem['id']): void {
     const isConfirmed = window.confirm('Do you really want to delete this course?');
     if (isConfirmed) {
-      this.courseListService.deleteListItem(id).subscribe(res => {
-        this.courseListService.getList(0, this.start + this.count).subscribe(list => {
-          this.filteredCourseItemList = list;
-        });
+      this.courseListService.deleteListItem(id).subscribe(() => {
+        this.courseListService.getList(0, this.start + this.count);
       });
     }
-  };
+  }
 }

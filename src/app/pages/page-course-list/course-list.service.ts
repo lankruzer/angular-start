@@ -2,25 +2,34 @@ import { Injectable } from '@angular/core';
 import { CourseListItem } from './course-list-item.model';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../../shared/constants/constants';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseListService {
-  public MS_IN_DAY: number = 86400000;
+  coursesData = {
+    list: [],
+    isLoadMore: false
+  };
+  courses = new BehaviorSubject<object>(this.coursesData);
 
   constructor(private http: HttpClient) {}
 
-  getList(start, count) {
-    return this.http.get(`${API_URL}/courses`, { params: { start, count } });
+  getList(start, count, query?) {
+    const options = { start, count };
+    this.http.get(`${API_URL}/courses`, { params: query ? {...options, textFragment: query} : options })
+      .subscribe((res: Array<any>) => {
+        this.courses.next({
+          // @ts-ignore
+          list: start === 0 ? res : [...(this.courses.value.list), ...res],
+          isLoadMore: res.length >= count
+        });
+      });
   }
 
   getListItemById(id: string) {
     return this.http.get(`${API_URL}/courses`, { params: { id } });
-  }
-
-  getListWithQuery(start, count, query) {
-    return this.http.get(`${API_URL}/courses`, { params: { start, count, textFragment: query } });
   }
 
   createListItem(item: CourseListItem) {

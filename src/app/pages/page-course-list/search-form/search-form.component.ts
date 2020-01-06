@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { of, Subject, Subscription } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss']
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() searchQuery: string;
-  @Output() onSearchSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onSearchChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() searchChange: EventEmitter<string> = new EventEmitter<string>();
 
   keyUp = new Subject<KeyboardEvent>();
   private subscription: Subscription;
@@ -18,16 +18,13 @@ export class SearchFormComponent implements OnInit {
   constructor() {
     this.subscription = this.keyUp
       .pipe(
-        map(event => event.target.value),
+        map(event => (event.target as HTMLInputElement).value),
+        filter(value => (value.trim().length > 2)),
         debounceTime(250),
         distinctUntilChanged(),
-        mergeMap(search => of(search).pipe(delay(500)))
+        mergeMap(search => of(search))
       )
-      .subscribe(value => {
-        if (value.length > 2) {
-          this.onSearchChange.emit(value);
-        }
-      });
+      .subscribe(value => this.searchChange.emit(value));
   }
 
   ngOnInit() {}
@@ -36,12 +33,8 @@ export class SearchFormComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  searchSubmit(event): void {
+  onSearchSubmit(event): void {
     event.preventDefault();
-    this.onSearchSubmit.emit();
-  }
-
-  searchChange(event): void {
-    this.onSearchChange.emit(event.target.value);
+    this.searchSubmit.emit();
   }
 }
