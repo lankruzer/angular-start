@@ -3,6 +3,10 @@ import { LinkItem } from '../../core/breadcrumbs/link-item.model';
 import { CourseListItem } from '../page-course-list/course-list-item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseListService } from '../page-course-list/course-list.service';
+import { Store } from '@ngrx/store';
+import { IAppState } from '../../store/state/app.state';
+import { CreateCoursesListItem, EditCoursesListItem, GetCoursesListItem } from '../../store/actions/coursesList.actions';
+import { selectEditableCourseListItem } from '../../store/selectors/coursesList.selector';
 
 @Component({
   selector: 'app-page-course-list-item-add-edit',
@@ -36,23 +40,22 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private courseListService: CourseListService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private store: Store<IAppState>
   ) {
-    if (
-      this.route &&
-      this.route.snapshot &&
-      this.route.snapshot.params.id &&
-      this.route.snapshot.params.id.toString() !== 'new'
-    ) {
+    this.store.select(selectEditableCourseListItem).subscribe((course: CourseListItem) => {
+      this.course = {
+        ...this.course,
+        ...course
+      };
+      this.cdRef.markForCheck();
+    });
+
+    const id = this.route.snapshot.params.id;
+    if (id && id.toString() !== 'new') {
       this.isEdit = true;
       this.name = 'Edit course';
-      this.courseListService
-        .getListItemById(this.route.snapshot.params.id)
-        .subscribe((courseList: CourseListItem[]) => {
-          this.course = { ...courseList[0] };
-          this.cdRef.markForCheck();
-          this.links[1].text = this.course.name;
-        });
+      this.store.dispatch(new GetCoursesListItem(id));
     }
   }
 
@@ -60,7 +63,6 @@ export class PageCourseListItemAddEditComponent implements OnInit {
 
   onCancelHandle(event) {
     event.preventDefault();
-    console.log('onCancelHandle');
 
     const isConfirmed = window.confirm('Do you really want to leave this page?');
     if (isConfirmed) {
@@ -76,13 +78,9 @@ export class PageCourseListItemAddEditComponent implements OnInit {
 
     console.log('onCourseSubmit course = ', this.course);
     if (this.isEdit) {
-      this.courseListService.editListItem(this.course).subscribe(res => {
-        this.router.navigate(['/courses']);
-      });
+      this.store.dispatch(new EditCoursesListItem(this.course));
     } else {
-      this.courseListService.createListItem(this.course).subscribe(res => {
-        this.router.navigate(['/courses']);
-      });
+      this.store.dispatch(new CreateCoursesListItem(this.course));
     }
   }
 }

@@ -2,15 +2,14 @@
   <div class="container">
     <div class="wrapper">
       <app-logo></app-logo>
-
-      <div class="header-action" *ngIf="isActions">
-        <button type="button" *ngIf="!this.authService.isAuth" routerLink="/login" class="btn btn-login">
-          <img src="./assets/ic-user.svg" alt="" class="btn__icon">
+      <div class="header-action" *ngIf="isAuth">
+        <button type="button" *ngIf="!isAuth" routerLink="/login" class="btn btn-login">
+          <img src="ic-user.svg" alt="" class="btn__icon">
           Log in
         </button>
-        <button type="button" *ngIf="this.authService.isAuth" (click)="onUserLogout()" class="btn btn-logout">
-          <img src='./assets/ic-exit.svg' alt="" class="btn__icon">
-          {{ login }} Log off
+        <button type="button" *ngIf="isAuth" (click)="onUserLogout()" class="btn btn-logout">
+          <img src='ic-exit.svg' alt="" class="btn__icon">
+          {{ login || '' }} Log off
         </button>
       </div>
     </div>

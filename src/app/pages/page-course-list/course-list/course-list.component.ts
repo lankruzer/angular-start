@@ -1,7 +1,10 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { CourseListItem } from '../course-list-item.model';
-import { OrderBySearchQueryPipe } from './order-by-search-query.pipe';
 import { CourseListService } from '../course-list.service';
+import { Store } from '@ngrx/store';
+import { IAppState } from '../../../store/state/app.state';
+import { DeleteCoursesListItem, GetCoursesList } from '../../../store/actions/coursesList.actions';
+import { selectCoursesList } from '../../../store/selectors/coursesList.selector';
 
 @Component({
   selector: 'app-course-list',
@@ -12,38 +15,45 @@ export class CourseListComponent implements OnChanges {
   start = 0;
   count = 10;
   isLoadMore = false;
-  pipe: any = new OrderBySearchQueryPipe();
   @Input() searchQuery = '';
   filteredCourseItemList: any = [];
 
-  constructor(private courseListService: CourseListService) {
-    courseListService.getList(this.start, this.count);
-    // @ts-ignore
-    this.courseListService.courses.subscribe(({ list, isLoadMore}) => {
-      this.filteredCourseItemList = list;
-      this.isLoadMore = isLoadMore;
+  getCoursesList() {
+    this.store.dispatch(new GetCoursesList({
+      start: this.start,
+      count: this.count,
+      query: this.searchQuery
+    }));
+  }
+
+  constructor(private courseListService: CourseListService, private store: Store<IAppState>) {
+    this.getCoursesList();
+
+    this.store.select(selectCoursesList).subscribe((coursesList: CourseListItem[]) => {
+      this.filteredCourseItemList = this.start === 0 ? coursesList : [...this.filteredCourseItemList, ...coursesList];
+      this.isLoadMore = coursesList.length >= this.count;
     });
   }
 
   ngOnChanges() {
-    this.courseListService.getList(this.start, this.count, this.searchQuery);
+    this.start = 0;
+    this.getCoursesList();
   }
 
   onLoadMore(): void {
     this.start += this.count;
-    this.courseListService.getList(this.start, this.count);
-  }
-
-  onEditCourse(id: CourseListItem['id']): void {
-    console.log('Edit course id: ', id);
+    this.getCoursesList();
   }
 
   onDeleteCourse(id: CourseListItem['id']): void {
     const isConfirmed = window.confirm('Do you really want to delete this course?');
     if (isConfirmed) {
-      this.courseListService.deleteListItem(id).subscribe(() => {
-        this.courseListService.getList(0, this.start + this.count);
-      });
+      this.store.dispatch(new DeleteCoursesListItem(id));
+      this.store.dispatch(new GetCoursesList({
+        start: 0,
+        count: this.start + this.count,
+        query: this.searchQuery
+      }));
     }
   }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { IAppState } from '../../store/state/app.state';
+import { Store } from '@ngrx/store';
+import { Login } from '../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-page-login',
@@ -8,33 +11,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./page-login.component.scss']
 })
 export class PageLoginComponent implements OnInit {
-  private login: string;
-  private password: string;
-  private error: string;
+  login: string;
+  password: string;
+  error: string;
 
-  constructor(private service: AuthService, private router: Router) {}
+  constructor(private router: Router, private store: Store<IAppState>) {}
 
   ngOnInit() {}
 
   onLoginSubmit(event) {
     event.preventDefault();
     this.error = '';
-    this.service.login(this.login, this.password).subscribe(
-      (isAuth) => {
-        if (isAuth) {
-          this.router.navigate(['courses']);
-          return;
-        }
-      },
-      ({ error }) => {
-        if (error) {
-          this.error = error;
-          return;
-        }
-
-        this.error = 'Something went wrong, please try again';
-        return;
-      }
-    );
+    this.store.dispatch(new Login({ login: this.login, password: this.password }));
+    this.router.navigate(['courses']);
   }
 }
