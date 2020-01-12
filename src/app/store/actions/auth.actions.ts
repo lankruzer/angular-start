@@ -29,6 +29,7 @@ export class LoginSuccess implements Action {
 
 export class LoginFailure implements Action {
   public readonly type = EAuthActions.LoginFailure;
+  constructor(public payload: string) {}
 }
 
 export class Logout implements Action {

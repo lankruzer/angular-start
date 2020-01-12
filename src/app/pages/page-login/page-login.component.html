@@ -1,30 +1,40 @@
 <div class="container">
   <div class="form-login-wrapper">
-    <form class="form-login" (ngSubmit)="onLoginSubmit($event)">
+    <form class="form-login" #form="ngForm" (ngSubmit)="onLoginSubmit(form)">
       <h1 class="form-login__title">Login</h1>
-      <label class="input-wrapper">
-        <span class="input-wrapper__label">Login:</span>
+      <label class="input-wrapper {{loginFiled.touched && loginFiled.errors?.required && 'invalid'}}">
+        <span class="input-wrapper__label">
+          Login:
+          <span class="error" *ngIf="loginFiled.touched && loginFiled.errors?.required">
+            This field is required
+          </span>
+        </span>
         <input class="input-wrapper__input"
                type="text"
                placeholder="some login"
                name="login"
                required
-               [ngModel]="login"
-               (ngModelChange)="login = $event">
+               #loginFiled="ngModel"
+               [(ngModel)]="login">
       </label>
-      <label class="input-wrapper">
-        <span class="input-wrapper__label">Password:</span>
+      <label class="input-wrapper {{loginFiled.touched && loginFiled.errors?.required && 'invalid'}}">
+        <span class="input-wrapper__label">
+          Password:
+          <span class="error" *ngIf="passwordField.touched && passwordField.errors?.required">
+            This field is required
+          </span>
+        </span>
         <input class="input-wrapper__input"
                type="password"
                name="password"
                required
-               [ngModel]="password"
-               (ngModelChange)="password = $event">
+               #passwordField="ngModel"
+               [(ngModel)]="password">
       </label>
       <p class="error">{{ error }}</p>
       <div class="form-login-footer">
         <a routerLink="/page-not-found">Forgot password</a>
-        <button class="btn btn-login" type="submit">
+        <button class="btn btn-login" type="submit" [disabled]="form.invalid">
           Login
         </button>
       </div>

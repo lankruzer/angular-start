@@ -13,3 +13,8 @@ export const selectUser = createSelector(
   selectAuthState,
   (state: IAuthState) => state.user
 );
+
+export const selectLoginError = createSelector(
+  selectAuthState,
+  (state: IAuthState) => state.loginError
+);

@@ -3,10 +3,21 @@ import { Injectable } from '@angular/core';
 import { IAppState } from '../state/app.state';
 import { AuthService } from '../../shared/services/auth.service';
 import { Store } from '@ngrx/store';
-import { EAuthActions, GetUser, GetUserSuccess, Login, LoginSuccess, Logout, LogoutSuccess, SetIsAuth } from '../actions/auth.actions';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  EAuthActions,
+  GetUser,
+  GetUserSuccess,
+  Login,
+  LoginFailure,
+  LoginSuccess,
+  Logout,
+  LogoutSuccess,
+  SetIsAuth
+} from '../actions/auth.actions';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { User } from '../../user.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
@@ -15,7 +26,13 @@ export class AuthEffects {
     ofType<Login>(EAuthActions.Login),
     map(action => action.payload),
     switchMap(({ login, password }) => this.authService.login(login, password)),
-    switchMap(() => of(new LoginSuccess(), new SetIsAuth(true)))
+    switchMap(() => {
+      this.router.navigate(['courses']);
+      return of(new LoginSuccess(), new SetIsAuth(true));
+    }),
+    catchError(err => {
+      return of(new LoginFailure(err.error));
+    })
   );
 
   @Effect()
@@ -32,5 +49,5 @@ export class AuthEffects {
     switchMap((userData: User) => of(new GetUserSuccess(userData)))
   );
 
-  constructor(private authService: AuthService, private actions$: Actions, private store: Store<IAppState>) {}
+  constructor(private authService: AuthService, private actions$: Actions, private store: Store<IAppState>, private router: Router) {}
 }

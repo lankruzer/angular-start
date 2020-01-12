@@ -95,6 +95,12 @@
     border: solid 1px #d9dbe3;
     background-color: #ffffff;
   }
+
+  &.invalid {
+    .input-wrapper__input {
+      border-color: red;
+    }
+  }
 }
 
 .error {

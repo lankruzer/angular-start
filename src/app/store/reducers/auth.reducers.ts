@@ -12,13 +12,15 @@ export const authReducers = (state = initialAuthState, action: AuthActions): IAu
     case EAuthActions.LoginSuccess: {
       return {
         ...state,
-        isAuth: true
+        isAuth: true,
+        loginError: ''
       };
     }
     case EAuthActions.LoginFailure: {
       return {
         ...state,
-        isAuth: false
+        isAuth: false,
+        loginError: action.payload
       };
     }
     case EAuthActions.LogoutSuccess: {
