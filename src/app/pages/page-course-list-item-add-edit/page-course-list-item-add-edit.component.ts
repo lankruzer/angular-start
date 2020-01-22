@@ -45,12 +45,22 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private store: Store<IAppState>
   ) {
+    this.form = new FormGroup({
+      title: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
+      description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)])
+    });
+
     this.store.select(selectEditableCourseListItem).subscribe((course: CourseListItem) => {
       this.course = {
         ...this.course,
         ...course
       };
       this.cdRef.markForCheck();
+
+      this.form.setValue({
+        title: this.course.name,
+        description: this.course.description
+      });
     });
 
     const id = this.route.snapshot.params.id;
@@ -59,11 +69,6 @@ export class PageCourseListItemAddEditComponent implements OnInit {
       this.name = 'Edit course';
       this.store.dispatch(new GetCoursesListItem(id));
     }
-
-    this.form = new FormGroup({
-      title: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
-      description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)])
-    });
   }
 
   ngOnInit() {}
