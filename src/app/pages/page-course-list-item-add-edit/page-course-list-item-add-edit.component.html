@@ -1,34 +1,29 @@
 <app-breadcrumbs [links]="links"></app-breadcrumbs>
 
 <div class="container">
-  <form class="form-course" (ngSubmit)="onCourseSubmit($event)">
+  <form class="form-course" [formGroup]="form" (ngSubmit)="onCourseSubmit($event)">
     <h1 class="form-course__title">{{ name }}</h1>
-    <label class="input-wrapper">
+    <label class="input-wrapper" [class.invalid]="title.touched && title.invalid">
       <span class="input-wrapper-header">
         <span class="input-wrapper__label">Title:</span>
+        <span class="input-wrapper__error" *ngIf="title.touched && title.invalid">
+          {{ title.errors?.required && 'This field is required' }}
+          {{ title.errors?.maxlength && 'This field max length is 50' }}
+        </span>
         <span class="input-wrapper__required">*required</span>
       </span>
-      <input
-        class="input-wrapper__input"
-        type="text"
-        required="true"
-        name="title"
-        [ngModel]="course.name"
-        (ngModelChange)="course.name = $event"
-      >
-    фг
-    <label class="input-wrapper">
+      <input class="input-wrapper__input" type="text" formControlName="title" />
+    </label>
+    <label class="input-wrapper" [class.invalid]="description.touched && description.invalid">
       <span class="input-wrapper-header">
         <span class="input-wrapper__label">Description:</span>
+         <span class="input-wrapper__error" *ngIf="description.touched && description.invalid">
+          {{ title.errors?.required && 'This field is required' }}
+           {{ title.errors?.maxlength && 'This field max length is 50' }}
+        </span>
         <span class="input-wrapper__required">*required</span>
       </span>
-      <textarea
-        class="input-wrapper__input input-wrapper__input--textarea"
-        name="description"
-        required="true"
-        [ngModel]="course.description"
-        (ngModelChange)="course.description = $event"
-      ></textarea>
+      <textarea class="input-wrapper__input input-wrapper__input--textarea" formControlName="description"></textarea>
     </label>
     <div class="form-course-duration">
       <label class="input-wrapper">
@@ -43,6 +38,7 @@
           required="true"
           [ngModel]="course.length"
           (ngModelChange)="course.length = $event"
+          [ngModelOptions]="{standalone: true}"
         >
       </label>
       <div class="duration-formatted">{{ course.length | formatDuration }}</div>
@@ -60,6 +56,7 @@
           required="true"
           [ngModel]="course.date | date:'yyyy-MM-dd'"
           (ngModelChange)="course.date = $event"
+          [ngModelOptions]="{standalone: true}"
         >
       </label>
     </div>
@@ -67,7 +64,7 @@
 
     <div class="form-course-actions">
       <button (click)="onCancelHandle($event)" class="btn btn--gray" type="button">Cancel</button>
-      <button class="btn" type="submit">Save</button>
+      <button class="btn" type="submit" [disabled]="!this.form.touched || !this.form.valid">Save</button>
     </div>
   </form>
 </div>

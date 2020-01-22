@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { IAppState } from '../../store/state/app.state';
 import { CreateCoursesListItem, EditCoursesListItem, GetCoursesListItem } from '../../store/actions/coursesList.actions';
 import { selectEditableCourseListItem } from '../../store/selectors/coursesList.selector';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-page-course-list-item-add-edit',
@@ -15,6 +16,7 @@ import { selectEditableCourseListItem } from '../../store/selectors/coursesList.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageCourseListItemAddEditComponent implements OnInit {
+  form: FormGroup;
   isEdit: boolean = false;
   name: string = 'New course';
   course: CourseListItem = {
@@ -57,9 +59,22 @@ export class PageCourseListItemAddEditComponent implements OnInit {
       this.name = 'Edit course';
       this.store.dispatch(new GetCoursesListItem(id));
     }
+
+    this.form = new FormGroup({
+      title: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
+      description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)])
+    });
   }
 
   ngOnInit() {}
+
+  get title() {
+    return this.form.get('title');
+  }
+
+  get description() {
+    return this.form.get('description');
+  }
 
   onCancelHandle(event) {
     event.preventDefault();
@@ -77,6 +92,11 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     event.preventDefault();
 
     console.log('onCourseSubmit course = ', this.course);
+    console.log('form = ', this.form);
+    console.log('this.title.errors = ', this.title.errors);
+
+    if (!this.form.touched || !this.form.valid) { return; }
+
     if (this.isEdit) {
       this.store.dispatch(new EditCoursesListItem(this.course));
     } else {

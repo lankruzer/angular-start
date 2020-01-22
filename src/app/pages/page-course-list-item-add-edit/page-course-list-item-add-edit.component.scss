@@ -64,7 +64,11 @@
   transition: 0.25s;
   cursor: pointer;
 
-  &:hover {
+  &[disabled] {
+    background-color: #d9dbe3;
+  }
+
+  &:not([disabled]):hover {
     background-color: darken(#9bc837, 5);
   }
 
@@ -86,24 +90,31 @@
   }
 
   &-header {
+    margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  &__label {
-    display: block;
-    margin-bottom: 8px;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.22px;
+    letter-spacing: 0.22px;}
+
+  &__label {
+    display: block;
+    margin-right: 10px;
     color: #525462;
   }
 
+  &__error {
+    margin-left: 0;
+    margin-right: auto;
+    color: red;
+  }
+
   &__required {
+    margin-left: 10px;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
@@ -128,6 +139,12 @@
     &--textarea {
       height: 108px;
       resize: none;
+    }
+  }
+
+  &.invalid {
+    .input-wrapper__input {
+      border-color: red;
     }
   }
 }
