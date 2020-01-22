@@ -10,9 +10,10 @@ import { selectIsAuth } from '../../store/selectors/auth.selector';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  isAuth$ = this.store.select(selectIsAuth).subscribe(isAuth => isAuth);
-
-  constructor(private authService: AuthService, private router: Router, private store: Store<IAppState>) {}
+  isAuth$;
+  constructor(private authService: AuthService, private router: Router, private store: Store<IAppState>) {
+    this.store.select(selectIsAuth).subscribe(isAuth => this.isAuth$ = isAuth);
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,

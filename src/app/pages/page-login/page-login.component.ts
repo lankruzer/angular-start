@@ -23,11 +23,6 @@ export class PageLoginComponent implements OnInit {
   ngOnInit() {}
 
   onLoginSubmit(form: FormGroup) {
-    console.log('form = ', form);
-    console.log('form.invalid = ', form.invalid);
-    console.log('form.valid = ', form.valid);
-    console.log('form.value = ', form.value);
-
     if (form.valid) {
       this.store.dispatch(new Login(form.value));
     }

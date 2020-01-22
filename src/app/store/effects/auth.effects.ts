@@ -24,15 +24,17 @@ export class AuthEffects {
   @Effect()
   login$ = this.actions$.pipe(
     ofType<Login>(EAuthActions.Login),
-    map(action => action.payload),
-    switchMap(({ login, password }) => this.authService.login(login, password)),
-    switchMap(() => {
-      this.router.navigate(['courses']);
-      return of(new LoginSuccess(), new SetIsAuth(true));
-    }),
-    catchError(err => {
-      return of(new LoginFailure(err.error));
-    })
+    switchMap(action => this.authService.login(action.payload.login, action.payload.password).pipe(
+      map(({ token }) => {
+        window.localStorage.setItem('token', token);
+        return new LoginSuccess();
+      }),
+      map(() => {
+        this.router.navigate(['courses']);
+        return new SetIsAuth(true);
+      }),
+      catchError((err) => of(new LoginFailure(err.error)))
+    ))
   );
 
   @Effect()

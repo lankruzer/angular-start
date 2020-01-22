@@ -17,13 +17,7 @@ export class AuthService {
   }
 
   login(login, password) {
-    return this.http.post<any>(`${API_URL}/auth/login`, { login, password })
-      .pipe(
-        map(({ token }) => {
-          localStorage.setItem('token', token);
-          return token;
-        })
-      );
+    return this.http.post<any>(`${API_URL}/auth/login`, { login, password });
   }
 
   logout() {
