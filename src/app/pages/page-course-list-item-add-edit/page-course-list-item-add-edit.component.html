@@ -43,24 +43,10 @@
       </label>
       <div class="duration-formatted">{{ course.length | formatDuration }}</div>
     </div>
-    <div class="form-course-date">
-      <label class="input-wrapper">
-        <span class="input-wrapper-header">
-          <span class="input-wrapper__label">Date:</span>
-          <span class="input-wrapper__required">*required</span>
-        </span>
-        <input
-          class="input-wrapper__input"
-          type="date"
-          name="date"
-          required="true"
-          [ngModel]="course.date | date:'yyyy-MM-dd'"
-          (ngModelChange)="course.date = $event"
-          [ngModelOptions]="{standalone: true}"
-        >
-      </label>
-    </div>
+
     <div>Here will be separate component</div>
+
+    <app-date-field formControlName="date"></app-date-field>
 
     <div class="form-course-actions">
       <button (click)="onCancelHandle($event)" class="btn btn--gray" type="button">Cancel</button>

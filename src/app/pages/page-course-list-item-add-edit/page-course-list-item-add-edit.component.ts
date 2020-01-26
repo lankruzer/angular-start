@@ -47,7 +47,8 @@ export class PageCourseListItemAddEditComponent implements OnInit {
   ) {
     this.form = new FormGroup({
       title: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
-      description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)])
+      description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)]),
+      date: new FormControl(this.course.date, [Validators.required])
     });
 
     this.store.select(selectEditableCourseListItem).subscribe((course: CourseListItem) => {
@@ -59,7 +60,8 @@ export class PageCourseListItemAddEditComponent implements OnInit {
 
       this.form.setValue({
         title: this.course.name,
-        description: this.course.description
+        description: this.course.description,
+        date: this.course.date
       });
     });
 
@@ -81,6 +83,10 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     return this.form.get('description');
   }
 
+  get date() {
+    return this.form.get('date');
+  }
+
   onCancelHandle(event) {
     event.preventDefault();
 
@@ -96,16 +102,14 @@ export class PageCourseListItemAddEditComponent implements OnInit {
   onCourseSubmit(event) {
     event.preventDefault();
 
-    console.log('onCourseSubmit course = ', this.course);
-    console.log('form = ', this.form);
-    console.log('this.title.errors = ', this.title.errors);
+    console.log('form.value = ', this.form.value);
 
     if (!this.form.touched || !this.form.valid) { return; }
 
     if (this.isEdit) {
-      this.store.dispatch(new EditCoursesListItem(this.course));
+      this.store.dispatch(new EditCoursesListItem(this.form.value));
     } else {
-      this.store.dispatch(new CreateCoursesListItem(this.course));
+      this.store.dispatch(new CreateCoursesListItem(this.form.value));
     }
   }
 }
