@@ -1,0 +1,30 @@
+<div class="authors-field">
+  <div class="input-wrapper" [class.invalid]="isTouched && !isValid">
+    <span class="input-wrapper-header">
+      <span class="input-wrapper__label">Authors:</span>
+      <span class="input-wrapper__error" *ngIf="isTouched && !isValid">
+        This field is required
+      </span>
+      <span class="input-wrapper__required">*required</span>
+    </span>
+    <div class="input-wrapper__input">
+      <button
+        *ngFor="let author of authors"
+        class="input-wrapper__author-remove"
+        type="button"
+        (click)="removeAuthor(author)"
+      >
+        {{author.name}} {{author.lastName}}
+        <span class="input-wrapper__author-remove-icon">x</span>
+      </button>
+      <input type="text" class="input-wrapper__field" [ngModel]="query" (ngModelChange)="changeQuery($event)">
+      <ul *ngIf="filteredAuthors.length">
+        <li *ngFor="let author of filteredAuthors">
+          <button type="button" class="input-wrapper__author-add" (click)="addAuthor(author)">
+            {{author.name}} {{author.lastName}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { OrderByCreationDatePipe } from './course-list/order-by-creation-date.pipe';
 import { DateFreshStatusDirective } from './course-list-item/date-fresh-status.directive';
 import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,6 @@ import { SharedModule } from '../../shared/shared.module';
     OrderByCreationDatePipe,
     DateFreshStatusDirective
   ],
-  imports: [CommonModule, PageCourseListRoutingModule, CoreModule, SharedModule]
+  imports: [CommonModule, PageCourseListRoutingModule, CoreModule, SharedModule, ReactiveFormsModule]
 })
 export class PageCourseListModule {}

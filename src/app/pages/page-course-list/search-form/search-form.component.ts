@@ -1,40 +1,49 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { of, Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss']
 })
-export class SearchFormComponent implements OnInit, OnDestroy {
-  @Input() searchQuery: string;
+export class SearchFormComponent implements OnInit {
+  searchQuery = '';
   @Output() searchSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() searchChange: EventEmitter<string> = new EventEmitter<string>();
-
-  keyUp = new Subject<KeyboardEvent>();
-  private subscription: Subscription;
+  searchForm: FormGroup;
 
   constructor() {
-    this.subscription = this.keyUp
-      .pipe(
-        map(event => (event.target as HTMLInputElement).value),
-        filter(value => (value.trim().length > 2)),
-        debounceTime(250),
-        distinctUntilChanged(),
-        mergeMap(search => of(search))
-      )
-      .subscribe(value => this.searchChange.emit(value));
+    this.searchForm = new FormGroup({
+      searchQuery: new FormControl(this.searchQuery, [Validators.required, Validators.minLength(3)])
+    });
+
+    this.searchForm.setValue({
+      searchQuery: this.searchQuery
+    });
   }
 
-  ngOnInit() {}
+  get length() {
+    return this.searchForm.get('searchQuery');
+  }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  ngOnInit() {
+    this.searchForm.valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+      )
+      .subscribe(({searchQuery}) => {
+        if (this.searchForm.valid) {
+          this.searchChange.emit(searchQuery);
+        }
+      });
   }
 
   onSearchSubmit(event): void {
     event.preventDefault();
-    this.searchSubmit.emit();
+    if (this.searchForm.valid && this.searchForm.touched) {
+      this.searchSubmit.emit();
+    }
   }
 }

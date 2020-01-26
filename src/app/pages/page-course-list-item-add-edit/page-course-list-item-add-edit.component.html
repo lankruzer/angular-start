@@ -2,24 +2,24 @@
 
 <div class="container">
   <form class="form-course" [formGroup]="form" (ngSubmit)="onCourseSubmit($event)">
-    <h1 class="form-course__title">{{ name }}</h1>
-    <label class="input-wrapper" [class.invalid]="title.touched && title.invalid">
+    <h1 class="form-course__title">{{ title }}</h1>
+    <label class="input-wrapper" [class.invalid]="name.touched && name.invalid">
       <span class="input-wrapper-header">
         <span class="input-wrapper__label">Title:</span>
-        <span class="input-wrapper__error" *ngIf="title.touched && title.invalid">
-          {{ title.errors?.required && 'This field is required' }}
-          {{ title.errors?.maxlength && 'This field max length is 50' }}
+        <span class="input-wrapper__error" *ngIf="name.touched && name.invalid">
+          {{ name.errors?.required && 'This field is required' }}
+          {{ name.errors?.maxlength && 'This field max length is 50' }}
         </span>
         <span class="input-wrapper__required">*required</span>
       </span>
-      <input class="input-wrapper__input" type="text" formControlName="title" />
+      <input class="input-wrapper__input" type="text" formControlName="name" />
     </label>
     <label class="input-wrapper" [class.invalid]="description.touched && description.invalid">
       <span class="input-wrapper-header">
         <span class="input-wrapper__label">Description:</span>
          <span class="input-wrapper__error" *ngIf="description.touched && description.invalid">
-          {{ title.errors?.required && 'This field is required' }}
-           {{ title.errors?.maxlength && 'This field max length is 50' }}
+          {{ description.errors?.required && 'This field is required' }}
+           {{ description.errors?.maxlength && 'This field max length is 50' }}
         </span>
         <span class="input-wrapper__required">*required</span>
       </span>
@@ -28,8 +28,7 @@
 
     <app-date-field formControlName="date"></app-date-field>
     <app-duration-field formControlName="length"></app-duration-field>
-
-    <div>Here will be separate component</div>
+    <app-authors-field formControlName="authors"></app-authors-field>
 
     <div class="form-course-actions">
       <button (click)="onCancelHandle($event)" class="btn btn--gray" type="button">Cancel</button>

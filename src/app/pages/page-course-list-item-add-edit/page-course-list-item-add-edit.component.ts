@@ -9,6 +9,16 @@ import { CreateCoursesListItem, EditCoursesListItem, GetCoursesListItem } from '
 import { selectEditableCourseListItem } from '../../store/selectors/coursesList.selector';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+const initCourse: CourseListItem = {
+  id: null,
+  name: '',
+  date: Date.now().toString(),
+  length: 0,
+  description: '',
+  isTopRated: false,
+  authors: []
+};
+
 @Component({
   selector: 'app-page-course-list-item-add-edit',
   templateUrl: './page-course-list-item-add-edit.component.html',
@@ -18,15 +28,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PageCourseListItemAddEditComponent implements OnInit {
   form: FormGroup;
   isEdit: boolean = false;
-  name: string = 'New course';
-  course: CourseListItem = {
-    id: null,
-    name: '',
-    date: Date.now().toString(),
-    length: 0,
-    description: '',
-    isTopRated: false
-  };
+  title: string = 'New course';
+  course: CourseListItem = { ...initCourse };
   links: LinkItem[] = [
     {
       href: '/',
@@ -46,10 +49,11 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     private store: Store<IAppState>
   ) {
     this.form = new FormGroup({
-      title: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
+      name: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
       description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)]),
       date: new FormControl(this.course.date, [Validators.required]),
-      length: new FormControl(this.course.length, [Validators.required])
+      length: new FormControl(this.course.length, [Validators.required]),
+      authors: new FormControl(this.course.authors, [Validators.required])
     });
 
     this.store.select(selectEditableCourseListItem).subscribe((course: CourseListItem) => {
@@ -60,25 +64,26 @@ export class PageCourseListItemAddEditComponent implements OnInit {
       this.cdRef.markForCheck();
 
       this.form.setValue({
-        title: this.course.name,
+        name: this.course.name,
         description: this.course.description,
         date: this.course.date,
         length: this.course.length,
+        authors: this.course.authors,
       });
     });
 
     const id = this.route.snapshot.params.id;
     if (id && id.toString() !== 'new') {
       this.isEdit = true;
-      this.name = 'Edit course';
+      this.title = 'Edit course';
       this.store.dispatch(new GetCoursesListItem(id));
     }
   }
 
   ngOnInit() {}
 
-  get title() {
-    return this.form.get('title');
+  get name() {
+    return this.form.get('name');
   }
 
   get description() {
@@ -91,6 +96,10 @@ export class PageCourseListItemAddEditComponent implements OnInit {
 
   get length() {
     return this.form.get('length');
+  }
+
+  get authors() {
+    return this.form.get('authors');
   }
 
   onCancelHandle(event) {
@@ -113,7 +122,10 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     if (!this.form.touched || !this.form.valid) { return; }
 
     if (this.isEdit) {
-      this.store.dispatch(new EditCoursesListItem(this.form.value));
+      this.store.dispatch(new EditCoursesListItem({
+        ...this.form.value,
+        id: this.course.id
+      }));
     } else {
       this.store.dispatch(new CreateCoursesListItem(this.form.value));
     }

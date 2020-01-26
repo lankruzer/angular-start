@@ -1,3 +1,5 @@
+import { IAuthor } from './author.model';
+
 export interface CourseListItem {
   id: number;
   name: string;
@@ -5,4 +7,5 @@ export interface CourseListItem {
   length: number;
   description: string;
   isTopRated: boolean;
+  authors?: IAuthor[];
 }
