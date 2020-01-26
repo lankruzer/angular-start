@@ -48,7 +48,8 @@ export class PageCourseListItemAddEditComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl(this.course.name, [Validators.required, Validators.maxLength(50)]),
       description: new FormControl(this.course.description, [Validators.required, Validators.maxLength(500)]),
-      date: new FormControl(this.course.date, [Validators.required])
+      date: new FormControl(this.course.date, [Validators.required]),
+      length: new FormControl(this.course.length, [Validators.required])
     });
 
     this.store.select(selectEditableCourseListItem).subscribe((course: CourseListItem) => {
@@ -61,7 +62,8 @@ export class PageCourseListItemAddEditComponent implements OnInit {
       this.form.setValue({
         title: this.course.name,
         description: this.course.description,
-        date: this.course.date
+        date: this.course.date,
+        length: this.course.length,
       });
     });
 
@@ -85,6 +87,10 @@ export class PageCourseListItemAddEditComponent implements OnInit {
 
   get date() {
     return this.form.get('date');
+  }
+
+  get length() {
+    return this.form.get('length');
   }
 
   onCancelHandle(event) {

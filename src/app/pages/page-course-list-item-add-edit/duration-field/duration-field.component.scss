@@ -1,0 +1,74 @@
+.field-duration {
+  display: flex;
+
+  .input-wrapper {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+
+    &-header {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0.22px;
+    }
+
+    &__label {
+      display: block;
+      margin-right: 10px;
+      color: #525462;
+    }
+
+    &__error {
+      margin-left: 0;
+      margin-right: auto;
+      color: red;
+    }
+
+    &__required {
+      margin-left: 10px;
+      font-size: 12px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: 0.19px;
+      text-align: right;
+      color: #6c7283;
+    }
+
+    &__input {
+      display: inline-block;
+      height: 36px;
+      box-sizing: border-box;
+      padding: 6px 12px;
+      border-radius: 3px;
+      font-size: 14px;
+      border: solid 1px #d9dbe3;
+      background-color: #ffffff;
+
+      &--textarea {
+        height: 108px;
+        resize: none;
+      }
+    }
+
+    &.invalid {
+      .input-wrapper__input {
+        border-color: red;
+      }
+    }
+  }
+
+  .duration-formatted {
+    display: inline-block;
+    margin-left: 12px;
+    margin-top: auto;
+  }
+}

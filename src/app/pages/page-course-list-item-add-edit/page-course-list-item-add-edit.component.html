@@ -25,28 +25,11 @@
       </span>
       <textarea class="input-wrapper__input input-wrapper__input--textarea" formControlName="description"></textarea>
     </label>
-    <div class="form-course-duration">
-      <label class="input-wrapper">
-        <span class="input-wrapper-header">
-          <span class="input-wrapper__label">Duration:</span>
-          <span class="input-wrapper__required">*required</span>
-        </span>
-        <input
-          class="input-wrapper__input"
-          type="text"
-          name="duration"
-          required="true"
-          [ngModel]="course.length"
-          (ngModelChange)="course.length = $event"
-          [ngModelOptions]="{standalone: true}"
-        >
-      </label>
-      <div class="duration-formatted">{{ course.length | formatDuration }}</div>
-    </div>
-
-    <div>Here will be separate component</div>
 
     <app-date-field formControlName="date"></app-date-field>
+    <app-duration-field formControlName="length"></app-duration-field>
+
+    <div>Here will be separate component</div>
 
     <div class="form-course-actions">
       <button (click)="onCancelHandle($event)" class="btn btn--gray" type="button">Cancel</button>

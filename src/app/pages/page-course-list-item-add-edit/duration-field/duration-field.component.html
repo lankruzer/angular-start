@@ -1,0 +1,19 @@
+<div class="field-duration">
+  <label class="input-wrapper" [class.invalid]="isTouched && !isValid">
+    <span class="input-wrapper-header">
+      <span class="input-wrapper__label">Duration:</span>
+      <span class="input-wrapper__error" *ngIf="isTouched && !isValid">
+        This field is required
+      </span>
+      <span class="input-wrapper__required">*required</span>
+    </span>
+    <input
+      class="input-wrapper__input"
+      type="number"
+      name="length"
+      [ngModel]="duration"
+      (ngModelChange)="updateValue($event)"
+    >
+    <span class="duration-formatted">{{ duration | formatDuration }}</span>
+  </label>
+</div>

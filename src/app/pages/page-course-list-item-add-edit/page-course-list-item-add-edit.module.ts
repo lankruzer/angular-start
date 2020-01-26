@@ -6,9 +6,10 @@ import { CoreModule } from '../../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { DateFieldComponent } from './date-field/date-field.component';
+import { DurationFieldComponent } from './duration-field/duration-field.component';
 
 @NgModule({
-  declarations: [PageCourseListItemAddEditComponent, DateFieldComponent],
+  declarations: [PageCourseListItemAddEditComponent, DateFieldComponent, DurationFieldComponent],
   imports: [CommonModule, PageCourseListItemAddEditRoutingModule, CoreModule, FormsModule, SharedModule, ReactiveFormsModule]
 })
 export class PageCourseListItemAddEditModule {}
