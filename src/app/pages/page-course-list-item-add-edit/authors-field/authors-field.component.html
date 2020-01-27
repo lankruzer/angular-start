@@ -18,8 +18,8 @@
         <span class="input-wrapper__author-remove-icon">x</span>
       </button>
       <input type="text" class="input-wrapper__field" [ngModel]="query" (ngModelChange)="changeQuery($event)">
-      <ul *ngIf="filteredAuthors.length">
-        <li *ngFor="let author of filteredAuthors">
+      <ul *ngIf="filteredAuthors.length" class="input-wrapper-authors">
+        <li *ngFor="let author of filteredAuthors" class="input-wrapper-authors__item">
           <button type="button" class="input-wrapper__author-add" (click)="addAuthor(author)">
             {{author.name}} {{author.lastName}}
           </button>
